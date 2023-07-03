@@ -1,8 +1,9 @@
 import Post from "./Post";
+import classes from '../styles/Profile.module.css';
 
 function Profile(){
     return (
-        <div className='content'>
+        <div className={classes.profile}>
             <div>
                 <img
                     src='https://e1.pxfuel.com/desktop-wallpaper/197/736/desktop-wallpaper-hot-girls-ultra-wide-women.jpg'
@@ -16,7 +17,7 @@ function Profile(){
                 <div>
                     New post
                 </div>
-                <div>
+                <div className={classes.posts}>
                     <Post/>
                     <Post/>
                 </div>
