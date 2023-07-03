@@ -1,4 +1,4 @@
-import classes from '../styles/Header.module.css'
+import classes from './Header.module.css'
 function Header(){
     return(
         <header className={classes.header}>

@@ -1,4 +1,4 @@
-import classes from '../styles/Navbar.module.css'
+import classes from './Navbar.module.css'
 function Navbar(){
     return (
         <nav className={classes.sidebarNav}>

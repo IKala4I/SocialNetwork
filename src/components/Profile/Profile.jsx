@@ -1,5 +1,5 @@
-import Post from "./Post";
-import classes from '../styles/Profile.module.css';
+import classes from './Profile.module.css';
+import MyPosts from "./MyPosts/MyPosts";
 
 function Profile(){
     return (
@@ -10,18 +10,9 @@ function Profile(){
                     alt='content img'/>
             </div>
             <div>
-                ava + desc
+                ava + description
             </div>
-            <div>
-                My posts
-                <div>
-                    New post
-                </div>
-                <div className={classes.posts}>
-                    <Post/>
-                    <Post/>
-                </div>
-            </div>
+            <MyPosts />
         </div>
     );
 }
