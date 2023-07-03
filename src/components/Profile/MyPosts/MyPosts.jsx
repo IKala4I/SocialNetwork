@@ -9,13 +9,9 @@ const MyPosts = () => {
                 <textarea></textarea>
                 <button>Add post</button>
             </div>
-            <div className={classes.posts}>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
+            <div>
+                <Post message={'Hi, How are u?'} likeCount={Math.floor(Math.random()*10)}/>
+                <Post message={'It\'s my first post'} likeCount={Math.floor(Math.random()*10)}/>
             </div>
         </div>
     )
