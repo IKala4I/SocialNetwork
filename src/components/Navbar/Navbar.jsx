@@ -1,14 +1,27 @@
 import classes from './Navbar.module.css'
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 function Navbar() {
     return (
         <nav className={classes.sidebarNav}>
             <div className={classes.item}>
-                <Link to='/profile'>Profile</Link>
+                <NavLink
+                    to='/profile'
+                    className={({isActive}) =>
+                        isActive ? `${classes.active}` : ""
+                    }
+                >
+                    Profile
+                </NavLink>
             </div>
             <div className={classes.item}>
-                <Link to='/dialogs'>Messages</Link>
+                <NavLink
+                    to='/dialogs' className={({isActive}) =>
+                    isActive ? `${classes.active}` : ""
+                }
+                >
+                    Messages
+                </NavLink>
             </div>
             <div className={classes.item}>
                 <a>News</a>
