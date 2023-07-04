@@ -1,24 +1,22 @@
 import './App.css'
 import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
-import {Outlet, useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import Profile from "../Profile/Profile";
+import Dialogs from "../Dialogs/Dialogs";
+import {Route, Routes} from "react-router-dom";
 
 function App() {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        navigate("/profile"); // Перенаправлення на /profile при завантаженні компонента App
-    }, [navigate]);
-
     return (
-        <div className='app-wrapper'>
-            <Header/>
-            <Navbar/>
-            <div className='app-wrapper-content'>
-                <Outlet />
+            <div className='app-wrapper'>
+                <Header/>
+                <Navbar/>
+                <div className='app-wrapper-content'>
+                    <Routes>
+                        <Route path='/profile' element={<Profile />}/>
+                        <Route path='/dialogs' element={<Dialogs />}/>
+                    </Routes>
+                </div>
             </div>
-        </div>
     );
 }
 
