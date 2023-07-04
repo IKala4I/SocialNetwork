@@ -1,12 +1,14 @@
 import classes from './Navbar.module.css'
-function Navbar(){
+import {Link} from "react-router-dom";
+
+function Navbar() {
     return (
         <nav className={classes.sidebarNav}>
             <div className={classes.item}>
-                <a>Profile</a>
+                <Link to='/profile'>Profile</Link>
             </div>
             <div className={classes.item}>
-                <a>Messages</a>
+                <Link to='/dialogs'>Messages</Link>
             </div>
             <div className={classes.item}>
                 <a>News</a>
