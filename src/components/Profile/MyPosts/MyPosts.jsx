@@ -1,5 +1,19 @@
-import classes from './MyPosts.module.css';
 import Post from './Post/Post';
+
+const postsData = [
+    {
+        id: 1,
+        message: 'Hi, How r u?',
+        likeCount: 5
+    },
+    {
+        id: 2,
+        message: 'It\'s my first post',
+        likeCount: 1
+    }
+];
+
+const postsArray = postsData.map(data => <Post id={data.id} message={data.message} likeCount={data.likeCount}/>);
 
 const MyPosts = () => {
     return (
@@ -10,11 +24,10 @@ const MyPosts = () => {
                 <button>Add post</button>
             </div>
             <div>
-                <Post message={'Hi, How are u?'} likeCount={Math.floor(Math.random()*10)}/>
-                <Post message={'It\'s my first post'} likeCount={Math.floor(Math.random()*10)}/>
+                {postsArray}
             </div>
         </div>
-    )
+    );
 }
 
 export default MyPosts;

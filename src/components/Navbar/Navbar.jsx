@@ -16,9 +16,10 @@ function Navbar() {
             </div>
             <div className={classes.item}>
                 <NavLink
-                    to='/dialogs' className={({isActive}) =>
-                    isActive ? `${classes.active}` : ""
-                }
+                    to='/dialogs'
+                    className={({isActive}) =>
+                        isActive ? `${classes.active}` : ""
+                    }
                 >
                     Messages
                 </NavLink>
