@@ -2,6 +2,7 @@
     grid-area: sidebar-nav;
     background-color: burlywood;
     padding: 20px;
+    font-size: 1.5em;
 }
 
 .item a {
@@ -11,4 +12,8 @@
 
 .item a.active {
     color: gold;
+}
+
+.item.settings {
+    margin: 15px 0;
 }

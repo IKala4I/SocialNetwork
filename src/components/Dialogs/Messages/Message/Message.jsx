@@ -1,9 +1,9 @@
 import classes from "./Message.module.css";
 
-function Message({message, id}) {
+function Message({messageData}) {
     return (
         <div className={classes.message}>
-            {message}
+            {messageData.message}
         </div>
     );
 }

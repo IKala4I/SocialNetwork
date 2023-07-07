@@ -1,11 +1,11 @@
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-function Profile() {
+function Profile({state}) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts posts={state.posts}/>
         </div>
     );
 }

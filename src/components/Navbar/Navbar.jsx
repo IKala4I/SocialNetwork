@@ -1,7 +1,8 @@
 import classes from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
+import Friends from "./Friends/Friends";
 
-function Navbar() {
+function Navbar({state}) {
     return (
         <nav className={classes.sidebarNav}>
             <div className={classes.item}>
@@ -30,9 +31,10 @@ function Navbar() {
             <div className={classes.item}>
                 <a>Music</a>
             </div>
-            <div className={classes.item}>
+            <div className={`${classes.item} ${classes.settings}`}>
                 <a>Settings</a>
             </div>
+            <Friends friends={state.friends}/>
         </nav>
     );
 }

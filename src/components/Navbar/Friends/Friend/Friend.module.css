@@ -1,0 +1,25 @@
+.friend {
+
+}
+
+.friend a.active{
+    color: gold;
+}
+
+.friend .avatar {
+    width: 1.7em;
+    height: 1.7em;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.friend .name{
+    font-size: 0.7em;
+}
+
+.friend .avatar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}

@@ -1,26 +1,15 @@
-import classes from "./Messages.module.css";
 import Message from "./Message/Message";
+import MessageRows from "./MessageRows/MessageRows";
+import Icon from "./Icon/Icon";
+import classes from "./Messages.module.css";
 
-const messagesData = [
-    {
-        id:1,
-        message:'Hi, hru?'
-    },
-    {
-        id:2,
-        message:'Im glad to see you.'
-    },
-    {
-        id:3,
-        message:'Me too <3'
-    },
-];
+function Messages({messages}) {
+    const messageComponents = messages.map(message => <Message messageData={message}/>);
+    const iconComponents = messages.map(message => <Icon name={message.sender}/>)
 
-const messagesArray = messagesData.map(data => <Message message={data.message} id={data.id}/> );
-function Messages() {
     return (
         <div className={classes.messages}>
-            {messagesArray}
+            <MessageRows messages={messageComponents} icons={iconComponents}/>
         </div>
     );
 }
