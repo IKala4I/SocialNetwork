@@ -10,7 +10,12 @@ function Messages({messages}) {
     return (
         <div className={classes.messages}>
             <MessageRows messages={messageComponents} icons={iconComponents}/>
+            <div>
+                <textarea></textarea>
+                <button>Send message</button>
+            </div>
         </div>
+
     );
 }
 

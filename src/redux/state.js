@@ -1,17 +1,20 @@
+import {rerenderApp} from "../render";
+
 const state = {
     profilePage: {
         posts: [
             {
                 id: 1,
                 message: 'Hi, How r u?',
-                likeCount: 5
+                likesCount: 5
             },
             {
                 id: 2,
                 message: 'It\'s my first post',
-                likeCount: 1
+                likesCount: 1
             }
-        ]
+        ],
+        newPostText: ''
     },
     dialogsPage: {
         dialogItems: [
@@ -72,6 +75,23 @@ const state = {
             }
         ]
     }
+}
+
+window.state = state
+
+export const addPost = (postMessage) => {
+    const post = {
+        id: state.profilePage.posts.length,
+        message: state.profilePage.newPostText,
+        likesCount: 0
+    }
+    state.profilePage.posts.push(post)
+    rerenderApp(state, addPost, onPostTextChange)
+}
+
+export const onPostTextChange = (value) => {
+    state.profilePage.newPostText = value;
+    rerenderApp(state, addPost, onPostTextChange)
 }
 
 export default state;

@@ -5,7 +5,7 @@ import Profile from "../Profile/Profile";
 import Dialogs from "../Dialogs/Dialogs";
 import {Route, Routes} from "react-router-dom";
 
-function App({state}) {
+function App({state, handleAddPost, onPostTextChange}) {
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -14,7 +14,7 @@ function App({state}) {
                 <Routes>
                     <Route
                         path='/profile'
-                        element={<Profile state={state.profilePage}/>}
+                        element={<Profile state={state.profilePage} handleAddPost={handleAddPost} onPostTextChange={onPostTextChange}/>}
                     />
                     <Route
                         path='/dialogs/*'
