@@ -1,4 +1,4 @@
-import {rerenderApp} from "../render";
+let rerenderApp = () =>{}
 
 const state = {
     profilePage: {
@@ -77,8 +77,6 @@ const state = {
     }
 }
 
-window.state = state
-
 export const addPost = (postMessage) => {
     const post = {
         id: state.profilePage.posts.length,
@@ -86,12 +84,16 @@ export const addPost = (postMessage) => {
         likesCount: 0
     }
     state.profilePage.posts.push(post)
-    rerenderApp(state, addPost, onPostTextChange)
+    rerenderApp()
 }
 
 export const onPostTextChange = (value) => {
     state.profilePage.newPostText = value;
-    rerenderApp(state, addPost, onPostTextChange)
+    rerenderApp()
+}
+
+export const subscribe = (observer) =>{
+    rerenderApp = observer
 }
 
 export default state;

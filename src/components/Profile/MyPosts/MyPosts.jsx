@@ -7,11 +7,12 @@ const MyPosts = ({posts, handleAddPost, onPostTextChange}) => {
     const messageBox = createRef();
     const addPost = () => {
         handleAddPost()
+        messageBox.current.value = ''
         onPostTextChange('')
     }
 
-    const onPostTextChangeLocal = (sender) => {
-        onPostTextChange(sender.target.value)
+    const onPostTextChangeLocal = () => {
+        onPostTextChange(messageBox.current.value)
     }
 
     return (
