@@ -1,8 +1,8 @@
 import ReactDOM from "react-dom/client";
 import React from "react";
-import state, {addPost, onPostTextChange, subscribe} from "./redux/state";
 import {BrowserRouter} from "react-router-dom";
 import App from "./components/App/App";
+import store from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -10,7 +10,7 @@ export const rerenderApp = () => {
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} handleAddPost={addPost} onPostTextChange={onPostTextChange}/>
+                <App store={store}/>
             </BrowserRouter>
         </React.StrictMode>
     );
@@ -18,4 +18,4 @@ export const rerenderApp = () => {
 
 rerenderApp()
 
-subscribe(rerenderApp)
+store.subscribe(rerenderApp)

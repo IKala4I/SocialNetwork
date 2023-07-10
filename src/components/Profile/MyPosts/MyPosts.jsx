@@ -1,25 +1,26 @@
 import Post from './Post/Post';
 import {createRef} from "react";
 
-const MyPosts = ({posts, handleAddPost, onPostTextChange}) => {
-    const postComponents = posts.map(post => <Post id={post.id} message={post.message} likeCount={post.likesCount}/>);
-
+const MyPosts = ({store}) => {
+    const postComponents = store.state.profilePage.posts.map(post => <Post id={post.id} message={post.message}
+                                                               likeCount={post.likesCount}/>);
+t
     const messageBox = createRef();
     const addPost = () => {
-        handleAddPost()
+        store.addPost()
         messageBox.current.value = ''
-        onPostTextChange('')
+        store.onPostTextChange('')
     }
 
-    const onPostTextChangeLocal = () => {
-        onPostTextChange(messageBox.current.value)
+    const onPostTextChange = () => {
+        store.onPostTextChange(messageBox.current.value)
     }
 
     return (
         <div>
             My posts
             <div>
-                <textarea onChange={onPostTextChangeLocal} ref={messageBox}/>
+                <textarea onChange={onPostTextChange} ref={messageBox}/>
                 <button onClick={addPost}>Add post</button>
             </div>
             <div>

@@ -1,11 +1,11 @@
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-function Profile({state, handleAddPost, onPostTextChange}) {
+function Profile({store}) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={state.posts} handleAddPost={handleAddPost} onPostTextChange={onPostTextChange} />
+            <MyPosts store={store}/>
         </div>
     );
 }

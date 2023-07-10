@@ -5,20 +5,20 @@ import Profile from "../Profile/Profile";
 import Dialogs from "../Dialogs/Dialogs";
 import {Route, Routes} from "react-router-dom";
 
-function App({state, handleAddPost, onPostTextChange}) {
+function App({store}) {
     return (
         <div className='app-wrapper'>
             <Header/>
-            <Navbar state={state.sideBar}/>
+            <Navbar state={store.state.sideBar}/>
             <div className='app-wrapper-content'>
                 <Routes>
                     <Route
                         path='/profile'
-                        element={<Profile state={state.profilePage} handleAddPost={handleAddPost} onPostTextChange={onPostTextChange}/>}
+                        element={<Profile store={store}/>}
                     />
                     <Route
                         path='/dialogs/*'
-                        element={<Dialogs state={state.dialogsPage}/>}
+                        element={<Dialogs state={store.state.dialogsPage}/>}
                     />
                 </Routes>
             </div>
