@@ -18,7 +18,7 @@ function App({store}) {
                     />
                     <Route
                         path='/dialogs/*'
-                        element={<Dialogs state={store.state.dialogsPage}/>}
+                        element={<Dialogs state={store.state.dialogsPage} dispatch={store.dispatch.bind(store)}/>}
                     />
                 </Routes>
             </div>

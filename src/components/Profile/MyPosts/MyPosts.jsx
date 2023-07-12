@@ -1,26 +1,27 @@
 import Post from './Post/Post';
 import {createRef} from "react";
+import {addPostActionCreator, updatePostTextActionCreator} from "../../../redux/store";
 
-const MyPosts = ({store}) => {
+const MyPosts = ({store, dispatch}) => {
     const postComponents = store.state.profilePage.posts.map(post => <Post id={post.id} message={post.message}
-                                                               likeCount={post.likesCount}/>);
-t
+                                                                           likeCount={post.likesCount}/>);
+
     const messageBox = createRef();
     const addPost = () => {
-        store.addPost()
-        messageBox.current.value = ''
-        store.onPostTextChange('')
+        const addPostAction = addPostActionCreator()
+        dispatch(addPostAction)
     }
 
     const onPostTextChange = () => {
-        store.onPostTextChange(messageBox.current.value)
+        const updatePostTextAction = updatePostTextActionCreator(messageBox.current.value)
+        dispatch(updatePostTextAction)
     }
 
     return (
         <div>
             My posts
             <div>
-                <textarea onChange={onPostTextChange} ref={messageBox}/>
+                <textarea onChange={onPostTextChange} ref={messageBox} value={store.state.profilePage.newPostText}/>
                 <button onClick={addPost}>Add post</button>
             </div>
             <div>

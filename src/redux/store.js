@@ -1,3 +1,9 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT';
+
+
 const store = {
     _subscriber() {
         console.log('I\'m subsriber')
@@ -56,7 +62,8 @@ const store = {
                     sender: 'Vladyslav',
                     receiver: 'Kate'
                 },
-            ]
+            ],
+            message: ''
         },
         sideBar: {
             friends: [
@@ -83,24 +90,59 @@ const store = {
         return this._state
     },
 
-    addPost() {
+    _addPost() {
         const post = {
-            id: this.state.profilePage.posts.length,
-            message: this.state.profilePage.newPostText,
+            id: this._state.profilePage.posts.length + 1,
+            message: this._state.profilePage.newPostText,
             likesCount: 0
         }
         this._state.profilePage.posts.push(post)
+        this._state.profilePage.newPostText = ''
         this._subscriber()
     },
 
-    onPostTextChange(value) {
+    _onPostTextChange(value) {
         this._state.profilePage.newPostText = value;
         this._subscriber()
+    },
+
+    _sendMessage() {
+        const message = {
+            id: this._state.dialogsPage.messages.length + 1,
+            message: this._state.dialogsPage.messages.message,
+            sender: 'Vladyslav',
+            receiver: 'Kate'
+        }
+        this._state.dialogsPage.messages.push(message)
+        this._state.dialogsPage.message = ''
+        this._subscriber()
+    },
+
+    _onSendMessageChange(value) {
+        this._state.dialogsPage.messages.message = value;
+        this._subscriber()
+    },
+
+    dispatch(action) {
+        if (action.type === ADD_POST)
+            this._addPost()
+        else if (action.type === UPDATE_POST_TEXT)
+            this._onPostTextChange(action.newText)
+        else if (action.type === SEND_MESSAGE)
+            this._sendMessage()
+        else if (action.type === UPDATE_MESSAGE_TEXT)
+            this._onSendMessageChange(action.newText)
     },
 
     subscribe(observer) {
         this._subscriber = observer
     }
 }
+window.state = store._state
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const updatePostTextActionCreator = (text) => ({type: UPDATE_POST_TEXT, newText: text})
+export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
+export const updateSendMessageActionCreator = (text) => ({type: UPDATE_MESSAGE_TEXT, newText: text})
 
 export default store;

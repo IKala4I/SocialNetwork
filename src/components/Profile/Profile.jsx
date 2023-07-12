@@ -5,7 +5,7 @@ function Profile({store}) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts store={store}/>
+            <MyPosts store={store} dispatch={store.dispatch.bind(store)}/>
         </div>
     );
 }
