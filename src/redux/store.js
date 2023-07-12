@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
-const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT';
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 
 const store = {
@@ -63,7 +62,7 @@ const store = {
                     receiver: 'Kate'
                 },
             ],
-            message: ''
+            newMessageBody: ''
         },
         sideBar: {
             friends: [
@@ -90,48 +89,12 @@ const store = {
         return this._state
     },
 
-    _addPost() {
-        const post = {
-            id: this._state.profilePage.posts.length + 1,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.push(post)
-        this._state.profilePage.newPostText = ''
-        this._subscriber()
-    },
-
-    _onPostTextChange(value) {
-        this._state.profilePage.newPostText = value;
-        this._subscriber()
-    },
-
-    _sendMessage() {
-        const message = {
-            id: this._state.dialogsPage.messages.length + 1,
-            message: this._state.dialogsPage.messages.message,
-            sender: 'Vladyslav',
-            receiver: 'Kate'
-        }
-        this._state.dialogsPage.messages.push(message)
-        this._state.dialogsPage.message = ''
-        this._subscriber()
-    },
-
-    _onSendMessageChange(value) {
-        this._state.dialogsPage.messages.message = value;
-        this._subscriber()
-    },
-
     dispatch(action) {
-        if (action.type === ADD_POST)
-            this._addPost()
-        else if (action.type === UPDATE_POST_TEXT)
-            this._onPostTextChange(action.newText)
-        else if (action.type === SEND_MESSAGE)
-            this._sendMessage()
-        else if (action.type === UPDATE_MESSAGE_TEXT)
-            this._onSendMessageChange(action.newText)
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sideBar = sidebarReducer(this._state.sideBar, action);
+
+        this._subscriber(this._state);
     },
 
     subscribe(observer) {
@@ -139,10 +102,4 @@ const store = {
     }
 }
 window.state = store._state
-
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const updatePostTextActionCreator = (text) => ({type: UPDATE_POST_TEXT, newText: text})
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
-export const updateSendMessageActionCreator = (text) => ({type: UPDATE_MESSAGE_TEXT, newText: text})
-
 export default store;

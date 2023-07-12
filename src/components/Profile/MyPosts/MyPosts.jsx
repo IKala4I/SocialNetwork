@@ -1,6 +1,6 @@
 import Post from './Post/Post';
 import {createRef} from "react";
-import {addPostActionCreator, updatePostTextActionCreator} from "../../../redux/store";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
 const MyPosts = ({store, dispatch}) => {
     const postComponents = store.state.profilePage.posts.map(post => <Post id={post.id} message={post.message}
@@ -13,7 +13,7 @@ const MyPosts = ({store, dispatch}) => {
     }
 
     const onPostTextChange = () => {
-        const updatePostTextAction = updatePostTextActionCreator(messageBox.current.value)
+        const updatePostTextAction = updateNewPostTextActionCreator(messageBox.current.value)
         dispatch(updatePostTextAction)
     }
 
