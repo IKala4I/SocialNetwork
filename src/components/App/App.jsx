@@ -2,14 +2,15 @@ import './App.css'
 import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
 import Profile from "../Profile/Profile";
-import Dialogs from "../Dialogs/Dialogs";
+import Dialogs from "../DialogsContainer/Dialogs/Dialogs";
 import {Route, Routes} from "react-router-dom";
+import DialogsContainer from "../DialogsContainer/DialogsContainer";
 
 function App({store}) {
     return (
         <div className='app-wrapper'>
             <Header/>
-            <Navbar state={store.state.sideBar}/>
+            <Navbar state={store.getState().sidebar}/>
             <div className='app-wrapper-content'>
                 <Routes>
                     <Route
@@ -18,7 +19,7 @@ function App({store}) {
                     />
                     <Route
                         path='/dialogs/*'
-                        element={<Dialogs state={store.state.dialogsPage} dispatch={store.dispatch.bind(store)}/>}
+                        element={<DialogsContainer store={store}/>}
                     />
                 </Routes>
             </div>

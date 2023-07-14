@@ -1,11 +1,11 @@
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import MyPostsContainer from "./MyPostsContainer/MyPostsContainer";
 
 function Profile({store}) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts store={store} dispatch={store.dispatch.bind(store)}/>
+            <MyPostsContainer store={store}/>
         </div>
     );
 }
