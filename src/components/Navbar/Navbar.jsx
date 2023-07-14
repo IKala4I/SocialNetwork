@@ -2,7 +2,7 @@ import classes from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
 import Friends from "./Friends/Friends";
 
-function Navbar({state}) {
+function Navbar() {
     return (
         <nav className={classes.sidebarNav}>
             <div className={classes.item}>
@@ -34,7 +34,7 @@ function Navbar({state}) {
             <div className={`${classes.item} ${classes.settings}`}>
                 <a>Settings</a>
             </div>
-            <Friends friends={state.friends}/>
+            <Friends/>
         </nav>
     );
 }

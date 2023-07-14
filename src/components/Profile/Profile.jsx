@@ -1,11 +1,11 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPostsContainer/MyPostsContainer";
 
-function Profile({store}) {
+function Profile() {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer store={store}/>
+            <MyPostsContainer/>
         </div>
     );
 }

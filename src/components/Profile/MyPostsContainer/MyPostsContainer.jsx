@@ -1,7 +1,10 @@
 import MyPosts from "./MyPosts/MyPosts";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {useContext} from "react";
+import StoreContext from "../../../StoreContext";
 
-const MyPostsContainer = ({store}) => {
+const MyPostsContainer = () => {
+    const store = useContext(StoreContext)
     const addPost = () => {
         const addPostAction = addPostActionCreator()
         store.dispatch(addPostAction)
