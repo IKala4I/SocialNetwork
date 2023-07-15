@@ -3,7 +3,7 @@ import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./components/App/App";
 import store from "./redux/redux-store";
-import StoreContext from './StoreContext';
+import {Provider} from "./StoreContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -11,9 +11,9 @@ export const rerenderApp = () => {
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <StoreContext.Provider value={store}>
+                <Provider store={store}>
                     <App/>
-                </StoreContext.Provider>
+                </Provider>
             </BrowserRouter>
         </React.StrictMode>
     );
