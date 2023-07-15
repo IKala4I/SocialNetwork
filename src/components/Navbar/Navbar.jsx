@@ -1,6 +1,6 @@
 import classes from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
-import Friends from "./Friends/Friends";
+import FriendsContainer from "./FriendsContainer/FriendsContainer";
 
 function Navbar() {
     return (
@@ -34,7 +34,7 @@ function Navbar() {
             <div className={`${classes.item} ${classes.settings}`}>
                 <a>Settings</a>
             </div>
-            <Friends/>
+            <FriendsContainer/>
         </nav>
     );
 }
