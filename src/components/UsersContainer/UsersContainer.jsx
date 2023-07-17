@@ -17,7 +17,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(unfollowActionCreator(userID))
         },
         setUsers:(users)=>{
-            debugger
             const action = setUsersActionCreator(users)
             dispatch(action)
         }

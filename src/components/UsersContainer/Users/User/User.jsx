@@ -1,5 +1,5 @@
 import classes from './user.module.css'
-import userPhoto from '../../../../assets/images/userImage.png'
+import userPhoto from '../../../../assets/images/user.png'
 
 function User({userInfo, follow, unfollow}) {
 
