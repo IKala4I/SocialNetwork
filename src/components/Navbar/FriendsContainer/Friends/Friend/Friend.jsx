@@ -20,6 +20,7 @@ function Friend({data}) {
                 </NavLink>
             </div>
         </div>
+
     );
 }
 

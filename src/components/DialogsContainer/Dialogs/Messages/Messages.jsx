@@ -4,7 +4,7 @@ import Icon from "./Icon/Icon";
 import classes from "./Messages.module.css";
 import {createRef} from "react";
 
-function Messages({messages, sendMessage, updateSendMessageBody, messageBody}) {
+function Messages({messages, sendMessage, updateNewMessageBody, messageBody}) {
 
     const messageComponents = messages.map(message => <Message messageData={message}/>);
     const iconComponents = messages.map(message => <Icon name={message.sender}/>)
@@ -15,7 +15,7 @@ function Messages({messages, sendMessage, updateSendMessageBody, messageBody}) {
     }
     const onMessageUpdate = () => {
         const message = messageBox.current.value
-        updateSendMessageBody(message)
+        updateNewMessageBody(message)
     }
 
     return (

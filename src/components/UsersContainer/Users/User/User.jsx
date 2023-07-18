@@ -1,12 +1,18 @@
 import classes from './user.module.css'
 import userPhoto from '../../../../assets/images/user.png'
 
-function User({userInfo, follow, unfollow}) {
+function User({userInfo, follow, unfollow, addFriend, removeFriend}) {
 
     const onFollow = () => {
         follow(userInfo.id)
+        addFriend({
+            id: userInfo.id,
+            image: userPhoto,
+            name: userInfo.name,
+        })
     }
     const onUnfollow = () => {
+        removeFriend(userInfo.id)
         unfollow(userInfo.id)
     }
 

@@ -1,7 +1,7 @@
 import User from "./User/User";
 import classes from './users.module.css'
 
-function Users(props){
+function Users(props) {
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     const pages = []
 
@@ -17,8 +17,10 @@ function Users(props){
                               (e) => props.onPageChanged(pageNumber)}>{pageNumber}</span>)}
             </div>
             {props.users.map(user => <User key={user.id} userInfo={user}
-                                                follow={props.follow}
-                                                unfollow={props.unfollow}/>)}
+                                           follow={props.follow}
+                                           unfollow={props.unfollow}
+                                           addFriend={props.addFriend}
+                                           removeFriend={props.removeFriend}/>)}
         </div>
     )
 }

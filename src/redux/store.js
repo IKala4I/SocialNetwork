@@ -101,5 +101,4 @@ const store = {
         this._subscriber = observer
     }
 }
-window.state = store._state
 export default store;

@@ -2,12 +2,12 @@ import classes from "./Dialogs.module.css"
 import DialogsItems from "./DialogsItems/DialogsItems";
 import Messages from "./Messages/Messages";
 
-function Dialogs({state, sendMessage, updateSendMessageBody}) {
+function Dialogs({state, sendMessage, updateNewMessageBody}) {
     return (
         <div className={classes.dialogs}>
             <DialogsItems dialogItems={state.dialogItems}/>
             <Messages messages={state.messages} sendMessage={sendMessage}
-                      updateSendMessageBody={updateSendMessageBody} messageBody={state.newMessageBody}/>
+                      updateNewMessageBody={updateNewMessageBody} messageBody={state.newMessageBody}/>
         </div>
     );
 }
