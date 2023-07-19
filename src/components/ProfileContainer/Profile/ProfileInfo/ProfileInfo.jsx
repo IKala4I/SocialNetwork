@@ -1,4 +1,7 @@
-function ProfileInfo() {
+function ProfileInfo({profile}) {
+    if (!profile)
+        return <></>
+
     return (
         <>
             <div>
@@ -7,6 +10,9 @@ function ProfileInfo() {
                     alt='content img'/>
             </div>
             <div>
+                <div>
+                    <img src={profile.photos.large} alt='ava'/>
+                </div>
                 ava + description
             </div>
         </>

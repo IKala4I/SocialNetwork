@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_PROFILE = 'SET-PROFILE';
+const TOGGLE_IS_PROFILE_FETCHING = 'TOGGLE-IS-PROFILE-FETCHING';
 
 const initState = {
     posts: [
@@ -14,7 +16,9 @@ const initState = {
             likesCount: 1
         }
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null,
+    isProfileFetching: false
 }
 
 const profileReducer = (state = initState, action) => {
@@ -37,6 +41,16 @@ const profileReducer = (state = initState, action) => {
                 newPostText: action.newText
             }
         }
+        case SET_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            }
+        case TOGGLE_IS_PROFILE_FETCHING:
+            return {
+                ...state,
+                isProfileFetching: action.isProfileFetching
+            }
         default:
             return state;
     }
@@ -46,5 +60,7 @@ const profileReducer = (state = initState, action) => {
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const setProfile = (profile) => ({type: SET_PROFILE, profile})
+export const toggleIsProfileFetching = (isProfileFetching) => ({type: TOGGLE_IS_PROFILE_FETCHING, isProfileFetching})
 
 export default profileReducer;
