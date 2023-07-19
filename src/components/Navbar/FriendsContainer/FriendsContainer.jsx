@@ -1,18 +1,14 @@
 import Friends from "./Friends/Friends";
 import {connect} from "react-redux";
 import {Component} from "react";
-import axios from "axios";
 import {setFriends} from "../../../redux/sidebar-reducer";
+import friendsAPI from "../../../api/friendsAPI";
 
 class FriendsContainer extends Component {
     componentDidMount() {
-        axios
-            .get('https://social-network.samuraijs.com/api/1.0/users?count=100', {withCredentials: true})
-            .then(
-                response => {
-                    debugger
-                    const friends = response.data.items.filter(user => user.followed)
-                    this.props.setFriends(friends)
+        friendsAPI.getFriends()
+            .then(data => {
+                    this.props.setFriends(data.items)
                 }
             )
     }

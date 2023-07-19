@@ -1,35 +1,23 @@
 import classes from './user.module.css'
 import userPhoto from '../../../../assets/images/user.png'
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import usersAPI from "../../../../api/usersAPI";
 
 function User({userInfo, follow, unfollow, addFriend, removeFriend}) {
 
     const onFollow = () => {
-        axios
-            .post(`https://social-network.samuraijs.com/api/1.0/follow/${userInfo.id}`, {}, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '79ed8fa8-64c4-4222-b6ef-61a994ad5d31'
-                }
-            })
-            .then(response => {
-                if (response.data.resultCode === 0) {
+        usersAPI.postFollowOnUser(userInfo.id)
+            .then(resultCode => {
+                if (resultCode === 0) {
                     follow(userInfo.id)
                     addFriend(userInfo)
                 }
             })
     }
     const onUnfollow = () => {
-        axios
-            .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userInfo.id}`, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '79ed8fa8-64c4-4222-b6ef-61a994ad5d31'
-                }
-            })
-            .then(response => {
-                if (response.data.resultCode === 0) {
+        usersAPI.deleteFollowOnUser(userInfo.id)
+            .then(resultCode => {
+                if (resultCode === 0) {
                     removeFriend(userInfo.id)
                     unfollow(userInfo.id)
                 }

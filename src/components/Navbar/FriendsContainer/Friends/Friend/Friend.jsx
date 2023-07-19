@@ -3,7 +3,6 @@ import {NavLink} from "react-router-dom";
 import defaultUserPhoto from '../../../../../assets/images/user.png'
 
 function Friend({data}) {
-    debugger
     return (
         <div className={classes.friend}>
             <div className={classes.avatar}>
