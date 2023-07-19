@@ -14,7 +14,7 @@ function App() {
             <div className='app-wrapper-content'>
                 <Routes>
                     <Route
-                        path='/profile/*'
+                        path='/profile/:userID?'
                         element={<ProfileContainer/>}
                     />
                     <Route

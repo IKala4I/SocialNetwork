@@ -11,7 +11,7 @@ function ProfileInfo({profile}) {
             </div>
             <div>
                 <div>
-                    <img src={profile.photos.large} alt='ava'/>
+                    <img src={profile.photos.large && profile.photos.large} alt='ava'/>
                 </div>
                 ava + description
             </div>

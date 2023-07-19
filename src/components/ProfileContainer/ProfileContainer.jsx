@@ -4,12 +4,17 @@ import {connect} from "react-redux";
 import axios from "axios";
 import {setProfile, toggleIsProfileFetching} from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
+import withRouter from "../../withRouter";
 
 class ProfileContainer extends Component {
     componentDidMount() {
         this.props.toggleIsProfileFetching(true)
+        let userID = this.props.router.params.userID
+        if (!userID)
+            userID = 2
+
         axios
-            .get('https://social-network.samuraijs.com/api/1.0/profile/29610')
+            .get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
             .then(response => {
                 this.props.toggleIsProfileFetching(false)
                 this.props.setProfile(response.data)
@@ -32,4 +37,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {setProfile, toggleIsProfileFetching})(ProfileContainer)
+export default connect(mapStateToProps, {setProfile, toggleIsProfileFetching})(withRouter(ProfileContainer))
