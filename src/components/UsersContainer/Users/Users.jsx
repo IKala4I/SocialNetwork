@@ -20,7 +20,9 @@ function Users(props) {
                                            follow={props.follow}
                                            unfollow={props.unfollow}
                                            addFriend={props.addFriend}
-                                           removeFriend={props.removeFriend}/>)}
+                                           removeFriend={props.removeFriend}
+                                           followingUsers={props.followingUsers}
+                                           toggleIsFollowing={props.toggleIsFollowing}/>)}
         </div>
     )
 }

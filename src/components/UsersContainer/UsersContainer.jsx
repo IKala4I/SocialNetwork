@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {
     followActionCreator as follow,
     setTotalUsersCountActionCreator as setTotalUsersCount,
-    setUsersActionCreator as setUsers, toggleIsFetchingActionCreator as toggleIsFetching,
+    setUsersActionCreator as setUsers, toggleIsFetchingActionCreator as toggleIsFetching, toggleIsFollowing,
     unfollowActionCreator as unfollow, updateCurrentPageActionCreator as updateCurrentPage
 } from "../../redux/users-reducer";
 import {Component} from "react";
@@ -42,21 +42,23 @@ class UsersContainer extends Component {
                                                                follow={this.props.follow}
                                                                unfollow={this.props.unfollow}
                                                                addFriend={this.props.addFriend}
-                                                               removeFriend={this.props.removeFriend}/>}
+                                                               removeFriend={this.props.removeFriend}
+                                                               followingUsers={this.props.followingUsers}
+                                                               toggleIsFollowing={this.props.toggleIsFollowing}/>}
             </>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    window.state = state
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        friends: state.sidebar.friends
+        friends: state.sidebar.friends,
+        followingUsers: state.usersPage.followingUsers
     }
 }
 
@@ -67,6 +69,7 @@ export default connect(mapStateToProps, {
     setTotalUsersCount,
     updateCurrentPage,
     toggleIsFetching,
+    toggleIsFollowing,
     addFriend,
     removeFriend
 })(UsersContainer);
