@@ -4,7 +4,7 @@ export const getInstance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
 })
-export const postAndDeleteInstance = axios.create({
+export const InstanceWithApiKey = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers: {

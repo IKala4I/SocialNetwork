@@ -1,4 +1,4 @@
-import {getInstance, postAndDeleteInstance} from "./axiosInstances";
+import {getInstance, InstanceWithApiKey} from "./axiosInstances";
 
 const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
@@ -7,12 +7,12 @@ const usersAPI = {
             .then(response => response.data)
     },
     postFollowOnUser(userID) {
-        return postAndDeleteInstance
+        return InstanceWithApiKey
             .post(`follow/${userID}`)
             .then(response => response.data.resultCode)
     },
     deleteFollowOnUser(userID) {
-        return postAndDeleteInstance
+        return InstanceWithApiKey
             .delete(`follow/${userID}`)
             .then(response => response.data.resultCode)
     }
