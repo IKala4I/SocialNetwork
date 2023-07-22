@@ -5,6 +5,7 @@ import {getUserProfile, setProfile, toggleIsProfileFetching} from "../../redux/p
 import Preloader from "../common/Preloader/Preloader";
 import withRouter from "../../withRouter";
 import withAuthNavigate from "../../withAuthNavigate";
+import {compose} from "redux";
 
 class ProfileContainer extends Component {
     componentDidMount() {
@@ -32,8 +33,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default withAuthNavigate(connect(mapStateToProps, {
-    setProfile,
-    toggleIsProfileFetching,
-    getUserProfile
-})(withRouter(ProfileContainer)))
+export default compose(
+    withAuthNavigate,
+    connect(mapStateToProps, {
+        setProfile,
+        toggleIsProfileFetching,
+        getUserProfile
+    }),
+    withRouter
+)(ProfileContainer)

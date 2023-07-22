@@ -5,16 +5,17 @@ import {
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import withAuthNavigate from "../../withAuthNavigate";
+import {compose} from "redux";
 
 const mapStateToProps = (state) => {
     return {
         state: state.dialogsPage
     }
 }
-
-const DialogsContainer = withAuthNavigate(connect(mapStateToProps, {
-    sendMessage,
-    updateNewMessageBody
-})(Dialogs))
-
-export default DialogsContainer;
+export default compose(
+    withAuthNavigate,
+    connect(mapStateToProps, {
+        sendMessage,
+        updateNewMessageBody
+    })
+)(Dialogs)
