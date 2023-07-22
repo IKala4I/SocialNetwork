@@ -3,7 +3,6 @@ import userPhoto from '../../../../assets/images/user.png'
 import {NavLink} from "react-router-dom";
 
 function User({userInfo, follow, unfollow, followingUsers, isAuth}) {
-    debugger
     const onFollow = () => {
         follow(userInfo)
     }
