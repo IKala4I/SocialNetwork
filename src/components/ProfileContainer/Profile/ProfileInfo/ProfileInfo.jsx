@@ -1,3 +1,5 @@
+import userDefaultPhoto from '../../../../assets/images/user.png'
+
 function ProfileInfo({profile}) {
     if (!profile)
         return <></>
@@ -11,7 +13,7 @@ function ProfileInfo({profile}) {
             </div>
             <div>
                 <div>
-                    <img src={profile.photos.large && profile.photos.large} alt='ava'/>
+                    <img src={profile.photos.large ? profile.photos.large : userDefaultPhoto} alt='ava'/>
                 </div>
                 ava + description
             </div>

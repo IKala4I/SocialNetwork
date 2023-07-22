@@ -1,3 +1,5 @@
+import friendsAPI from "../api/friendsAPI";
+
 const ADD_FRIEND = 'ADD-FRIEND'
 const REMOVE_FRIEND = 'REMOVE-FRIEND'
 const SET_FRIENDS = 'SET-FRIENDS'
@@ -11,9 +13,7 @@ const sidebarReducer = (state = initState, action) => {
         case ADD_FRIEND:
             return {
                 ...state,
-                friends: [...state.friends,
-                    {...action.friend, followed: true}
-                ]
+                friends: [...state.friends, action.friend]
             }
         case
         REMOVE_FRIEND:
@@ -32,8 +32,22 @@ const sidebarReducer = (state = initState, action) => {
     }
 }
 
+//actionCreators
+
 export const addFriend = (friend) => ({type: ADD_FRIEND, friend})
 export const removeFriend = (friendID) => ({type: REMOVE_FRIEND, friendID})
 export const setFriends = (friends) => ({type: SET_FRIENDS, friends})
+
+//thunks
+
+export const getFriends = () => {
+    return (dispatch) => {
+        friendsAPI.getFriends()
+            .then(data => {
+                    dispatch(setFriends(data.items))
+                }
+            )
+    }
+}
 
 export default sidebarReducer;

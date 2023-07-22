@@ -1,3 +1,6 @@
+import usersAPI from "../api/usersAPI";
+import {addFriend, removeFriend} from "./sidebar-reducer";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
@@ -69,27 +72,29 @@ const usersReducer = (state = initState, action) => {
     }
 }
 
-export const followActionCreator = (userID) => ({
+//actions
+
+export const followAction = (userID) => ({
     type: FOLLOW,
     userID: userID
 })
-export const unfollowActionCreator = (userID) => ({
+export const unfollowAction = (userID) => ({
     type: UNFOLLOW,
     userID: userID
 })
-export const setUsersActionCreator = (users) => ({
+export const setUsers = (users) => ({
     type: SET_USERS,
     users: users
 })
-export const setTotalUsersCountActionCreator = (usersCount) => ({
+export const setTotalUsersCount = (usersCount) => ({
     type: SET_TOTAL_USERS_COUNT,
     usersCount
 })
-export const updateCurrentPageActionCreator = (pageNumber) => ({
+export const updateCurrentPage = (pageNumber) => ({
     type: UPDATE_CURRENT_PAGE,
     pageNumber
 })
-export const toggleIsFetchingActionCreator = (isFetching) => ({
+export const toggleIsFetching = (isFetching) => ({
     type: TOGGLE_IS_FETCHING,
     isFetching
 })
@@ -98,5 +103,46 @@ export const toggleIsFollowing = (isFollowing, userID) => ({
     isFollowing,
     userID
 })
+
+
+//thunks
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(updateCurrentPage(currentPage))
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
+
+export const unfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleIsFollowing(true, userId))
+        usersAPI.deleteFollowOnUser(userId)
+            .then(resultCode => {
+                if (resultCode === 0) {
+                    dispatch(removeFriend(userId))
+                    dispatch(unfollowAction(userId))
+                    dispatch(toggleIsFollowing(false, userId))
+                }
+            })
+    }
+}
+export const follow = (userInfo) => {
+    return (dispatch) => {
+        dispatch(toggleIsFollowing(true, userInfo.id))
+        usersAPI.postFollowOnUser(userInfo.id)
+            .then(resultCode => {
+                if (resultCode === 0) {
+                    dispatch(followAction(userInfo.id))
+                    dispatch(addFriend(userInfo))
+                    dispatch(toggleIsFollowing(false, userInfo.id))
+                }
+            })
+    }
+}
 
 export default usersReducer;

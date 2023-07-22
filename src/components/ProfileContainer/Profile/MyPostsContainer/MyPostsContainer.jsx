@@ -1,6 +1,7 @@
 import MyPosts from "./MyPosts/MyPosts";
-import {addPostActionCreator as addPost, updateNewPostTextActionCreator as updateNewPostText} from "../../../../redux/profile-reducer";
+import {addPost, updateNewPostText} from "../../../../redux/profile-reducer";
 import {connect} from "react-redux";
+
 const mapStateToProps = (state) => {
     return {
         state: state.profilePage

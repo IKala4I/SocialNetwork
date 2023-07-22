@@ -1,31 +1,14 @@
 import classes from './user.module.css'
 import userPhoto from '../../../../assets/images/user.png'
 import {NavLink} from "react-router-dom";
-import usersAPI from "../../../../api/usersAPI";
 
-function User({userInfo, follow, unfollow, addFriend, removeFriend, followingUsers, toggleIsFollowing}) {
-
+function User({userInfo, follow, unfollow, followingUsers}) {
+    debugger
     const onFollow = () => {
-        toggleIsFollowing(true, userInfo.id)
-        usersAPI.postFollowOnUser(userInfo.id)
-            .then(resultCode => {
-                if (resultCode === 0) {
-                    follow(userInfo.id)
-                    addFriend(userInfo)
-                    toggleIsFollowing(false, userInfo.id)
-                }
-            })
+        follow(userInfo)
     }
     const onUnfollow = () => {
-        toggleIsFollowing(true, userInfo.id)
-        usersAPI.deleteFollowOnUser(userInfo.id)
-            .then(resultCode => {
-                if (resultCode === 0) {
-                    removeFriend(userInfo.id)
-                    unfollow(userInfo.id)
-                    toggleIsFollowing(false, userInfo.id)
-                }
-            })
+        unfollow(userInfo.id)
     }
 
     return (
@@ -35,9 +18,14 @@ function User({userInfo, follow, unfollow, addFriend, removeFriend, followingUse
                     <img src={userInfo.photos.small ? userInfo.photos.small : userPhoto} alt='user avatar'/>
                 </NavLink>
             </div>
-            {userInfo.followed ? <button disabled={followingUsers.some(id => id === userInfo.id)}
-                                         onClick={onUnfollow}>Unfollow</button> :
-                <button disabled={followingUsers.some(id => id === userInfo.id)} onClick={onFollow}>Follow</button>}
+            {userInfo.followed ?
+                <button disabled={followingUsers.some(id => id === userInfo.id)}
+                        onClick={onUnfollow}>Unfollow
+                </button>
+                :
+                <button disabled={followingUsers.some(id => id === userInfo.id)}
+                        onClick={onFollow}>Follow
+                </button>}
             <div>
                 <span>{userInfo.name}</span>
             </div>

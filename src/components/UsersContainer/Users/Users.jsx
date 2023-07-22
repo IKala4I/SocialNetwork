@@ -16,13 +16,12 @@ function Users(props) {
                           onClick={
                               (e) => props.onPageChanged(pageNumber)}>{pageNumber}</span>)}
             </div>
-            {props.users.map(user => <User key={user.id} userInfo={user}
+            {props.users.map(user => <User key={user.id}
+                                           userInfo={user}
                                            follow={props.follow}
                                            unfollow={props.unfollow}
-                                           addFriend={props.addFriend}
-                                           removeFriend={props.removeFriend}
                                            followingUsers={props.followingUsers}
-                                           toggleIsFollowing={props.toggleIsFollowing}/>)}
+            />)}
         </div>
     )
 }

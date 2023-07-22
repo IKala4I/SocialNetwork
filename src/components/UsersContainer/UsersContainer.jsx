@@ -1,35 +1,15 @@
 import {connect} from "react-redux";
-import {
-    followActionCreator as follow,
-    setTotalUsersCountActionCreator as setTotalUsersCount,
-    setUsersActionCreator as setUsers, toggleIsFetchingActionCreator as toggleIsFetching, toggleIsFollowing,
-    unfollowActionCreator as unfollow, updateCurrentPageActionCreator as updateCurrentPage
-} from "../../redux/users-reducer";
+import {follow, getUsers, toggleIsFollowing, unfollow} from "../../redux/users-reducer";
 import {Component} from "react";
 import Users from "./Users/Users";
 import Preloader from "../common/Preloader/Preloader";
-import {addFriend, removeFriend} from "../../redux/sidebar-reducer";
-import usersAPI from "../../api/usersAPI";
 
 class UsersContainer extends Component {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    onPageChanged = (pageNumber) => {
-        this.props.updateCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items);
-            });
-    }
+    onPageChanged = (pageNumber) => this.props.getUsers(pageNumber, this.props.pageSize)
 
     render() {
         return (
@@ -41,10 +21,8 @@ class UsersContainer extends Component {
                                                                users={this.props.users}
                                                                follow={this.props.follow}
                                                                unfollow={this.props.unfollow}
-                                                               addFriend={this.props.addFriend}
-                                                               removeFriend={this.props.removeFriend}
                                                                followingUsers={this.props.followingUsers}
-                                                               toggleIsFollowing={this.props.toggleIsFollowing}/>}
+                />}
             </>
         )
     }
@@ -65,11 +43,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
-    setTotalUsersCount,
-    updateCurrentPage,
-    toggleIsFetching,
     toggleIsFollowing,
-    addFriend,
-    removeFriend
+    getUsers
 })(UsersContainer);

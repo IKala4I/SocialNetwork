@@ -1,7 +1,7 @@
 import {getInstance} from "./axiosInstances";
 
 const profileAPI = {
-    getUserProfile(userID) {
+    getProfile(userID) {
         return getInstance
             .get(`profile/${userID}`)
             .then(response => response.data)
