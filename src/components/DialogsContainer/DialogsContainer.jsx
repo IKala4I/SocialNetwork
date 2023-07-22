@@ -4,6 +4,7 @@ import {
     updateNewMessageBodyActionCreator as updateNewMessageBody
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
+import withAuthNavigate from "../../withAuthNavigate";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,9 +12,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, {
+const DialogsContainer = withAuthNavigate(connect(mapStateToProps, {
     sendMessage,
     updateNewMessageBody
-})(Dialogs)
+})(Dialogs))
 
 export default DialogsContainer;

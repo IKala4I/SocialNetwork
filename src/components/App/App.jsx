@@ -5,6 +5,7 @@ import DialogsContainer from "../DialogsContainer/DialogsContainer";
 import UsersContainer from "../UsersContainer/UsersContainer";
 import ProfileContainer from "../ProfileContainer/ProfileContainer";
 import HeaderContainer from "../HeaderContainer/HeaderContainer";
+import LoginPage from "../Login/Login";
 
 function App() {
     return (
@@ -24,6 +25,10 @@ function App() {
                     <Route
                         path='/users'
                         element={<UsersContainer/>}
+                    />
+                    <Route
+                        path='/login'
+                        element={<LoginPage/>}
                     />
                 </Routes>
             </div>

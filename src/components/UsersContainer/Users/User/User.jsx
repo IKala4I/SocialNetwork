@@ -2,7 +2,7 @@ import classes from './user.module.css'
 import userPhoto from '../../../../assets/images/user.png'
 import {NavLink} from "react-router-dom";
 
-function User({userInfo, follow, unfollow, followingUsers}) {
+function User({userInfo, follow, unfollow, followingUsers, isAuth}) {
     debugger
     const onFollow = () => {
         follow(userInfo)
@@ -19,11 +19,11 @@ function User({userInfo, follow, unfollow, followingUsers}) {
                 </NavLink>
             </div>
             {userInfo.followed ?
-                <button disabled={followingUsers.some(id => id === userInfo.id)}
+                <button disabled={followingUsers.some(id => id === userInfo.id) || !isAuth}
                         onClick={onUnfollow}>Unfollow
                 </button>
                 :
-                <button disabled={followingUsers.some(id => id === userInfo.id)}
+                <button disabled={followingUsers.some(id => id === userInfo.id) || !isAuth}
                         onClick={onFollow}>Follow
                 </button>}
             <div>

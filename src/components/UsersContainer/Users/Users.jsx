@@ -21,6 +21,7 @@ function Users(props) {
                                            follow={props.follow}
                                            unfollow={props.unfollow}
                                            followingUsers={props.followingUsers}
+                                           isAuth={props.isAuth}
             />)}
         </div>
     )
