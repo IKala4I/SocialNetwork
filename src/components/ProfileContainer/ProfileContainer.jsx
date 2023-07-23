@@ -1,7 +1,12 @@
 import {Component} from "react";
 import Profile from "./Profile/Profile";
 import {connect} from "react-redux";
-import {getUserProfile, setProfile, toggleIsProfileFetching} from "../../redux/profile-reducer";
+import {
+    getStatus,
+    getUserProfile,
+    toggleIsProfileFetching,
+    updateStatus
+} from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import withRouter from "../../withRouter";
 import withAuthNavigate from "../../withAuthNavigate";
@@ -15,12 +20,17 @@ class ProfileContainer extends Component {
             userId = 29623
 
         this.props.getUserProfile(userId)
+        this.props.getStatus(userId)
     }
 
     render() {
         return (
             <>
-                {this.props.isProfileFetching ? <Preloader/> : <Profile profile={this.props.profile}/>}
+                {this.props.isProfileFetching
+                    ?
+                    <Preloader/>
+                    :
+                    <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>}
             </>
         )
     }
@@ -29,16 +39,18 @@ class ProfileContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
-        isProfileFetching: state.profilePage.isProfileFetching
+        isProfileFetching: state.profilePage.isProfileFetching,
+        status: state.profilePage.status
     }
 }
 
 export default compose(
     withAuthNavigate,
     connect(mapStateToProps, {
-        setProfile,
         toggleIsProfileFetching,
-        getUserProfile
+        getUserProfile,
+        getStatus,
+        updateStatus
     }),
     withRouter
 )(ProfileContainer)

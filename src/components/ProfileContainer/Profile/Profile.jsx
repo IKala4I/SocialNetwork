@@ -1,10 +1,10 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPostsContainer/MyPostsContainer";
 
-function Profile({profile}) {
+function Profile({profile, status, updateStatus}) {
     return (
         <div>
-            <ProfileInfo profile={profile}/>
+            <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
             <MyPostsContainer/>
         </div>
     );

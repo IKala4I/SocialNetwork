@@ -1,7 +1,7 @@
 import userDefaultPhoto from '../../../../assets/images/user.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
-function ProfileInfo({profile}) {
+function ProfileInfo({profile, status, updateStatus}) {
     if (!profile)
         return <></>
 
@@ -16,7 +16,7 @@ function ProfileInfo({profile}) {
                 <div>
                     <img src={profile.photos.large ? profile.photos.large : userDefaultPhoto} alt='ava'/>
                 </div>
-                <ProfileStatus aboutMe={profile.aboutMe}/>
+                <ProfileStatus status={status} updateStatus={updateStatus}/>
             </div>
         </>
     );
