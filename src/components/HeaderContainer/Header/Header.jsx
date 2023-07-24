@@ -2,6 +2,11 @@ import classes from './Header.module.css'
 import {NavLink} from "react-router-dom";
 
 function Header(props) {
+
+    const logOut = () => {
+        props.logOut()
+    }
+
     return (
         <header className={classes.header}>
             <img
@@ -9,7 +14,14 @@ function Header(props) {
                 alt='Header img'/>
             <div className={classes.loginBlock}>
                 {props.isAuth ?
-                    props.login :
+                    <div>
+                        <div>
+                            {props.login}
+                        </div>
+                        <div>
+                            <button onClick={logOut}>Log out</button>
+                        </div>
+                    </div> :
                     <NavLink to={'/login'}>
                         Login
                     </NavLink>

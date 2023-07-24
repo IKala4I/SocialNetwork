@@ -13,8 +13,6 @@ class ProfileStatus extends Component {
                 status: this.props.status
             });
         }
-
-        console.log("componentDidUpdate")
     }
 
     activateEditMode = () => {
