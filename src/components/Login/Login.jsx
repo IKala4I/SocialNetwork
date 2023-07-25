@@ -4,8 +4,9 @@ import {logIn} from "../../redux/auth-reducer";
 import {Input} from "../common/FormControls/FormControls";
 import {required} from "../../utils/validators";
 import {Navigate} from "react-router-dom";
+import classes from '../common/FormControls/FormControls.module.css'
 
-function LoginForm({handleSubmit}) {
+function LoginForm({handleSubmit, error}) {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -18,6 +19,10 @@ function LoginForm({handleSubmit}) {
             <div>
                 <Field component={Input} name={'rememberMe'} type="checkbox"/> Remember me
             </div>
+            {error && <div className={classes.formSummaryError}>
+                {error}
+            </div>
+            }
             <div>
                 <button type='submit'>Submit</button>
             </div>
@@ -48,4 +53,6 @@ function Login({isAuth, logIn}) {
 const mapStateToProps = state => ({
     isAuth: state.auth.isAuth
 })
-export default connect(mapStateToProps, {logIn})(Login)
+export default connect(mapStateToProps, {
+    logIn
+})(Login)

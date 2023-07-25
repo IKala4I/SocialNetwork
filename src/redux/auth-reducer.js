@@ -1,7 +1,7 @@
 import authAPI from "../api/authAPI";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET-USER-DATA'
-const TOGGLE_IS_AUTH = 'TOGGLE-IS-AUTH'
 
 const initState = {
     id: null,
@@ -17,11 +17,6 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 ...action.payload
             }
-        case TOGGLE_IS_AUTH:
-            return {
-                ...state,
-                isAuth: action.isAuth
-            }
         default:
             return state
     }
@@ -32,13 +27,12 @@ export const setUserData = (userId, email, login, isAuth) => ({
     type: SET_USER_DATA, payload:
         {userId, email, login, isAuth}
 });
-export const toggleIsAuth = (isAuth) => ({type: TOGGLE_IS_AUTH, isAuth})
 
 //thunks
 
 export const getAuthMe = () => {
     return (dispatch) => {
-        authAPI.getAuthMe()
+        return authAPI.getAuthMe()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data;
@@ -63,6 +57,9 @@ export const logIn = (body) => {
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(getAuthMe())
+                } else if (data.resultCode === 1) {
+                    let message = data.messages.length > 0 ? data.messages[0] : "Some error";
+                    dispatch(stopSubmit('login', {_error: message}));
                 }
             })
     }
