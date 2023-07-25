@@ -5,8 +5,8 @@ import {Textarea} from "../../../../common/FormControls/FormControls";
 
 const maxLength20 = maxLength(20)
 
-const MyPosts = ({state, addPost}) => {
-    const postComponents = state.posts.map(post => <Post id={post.id} message={post.message}
+const MyPosts = ({posts, addPost}) => {
+    const postComponents = posts.map(post => <Post id={post.id} message={post.message}
                                                          likeCount={post.likesCount}/>);
 
     const onAddPost = (formData) => {

@@ -10,6 +10,7 @@ import {Component} from "react";
 import {initializeApp} from "../../redux/app-reducer";
 import {connect} from "react-redux";
 import Preloader from "../common/Preloader/Preloader";
+import {getInitialized} from "../../redux/selectors/app-selectors";
 
 class App extends Component {
     componentDidMount() {
@@ -51,7 +52,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        initialized: state.app.initialized
+        initialized: getInitialized(state)
     }
 }
 export default connect(mapStateToProps, {initializeApp})(App);

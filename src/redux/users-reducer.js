@@ -106,7 +106,7 @@ export const toggleIsFollowing = (isFollowing, userID) => ({
 
 
 //thunks
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(updateCurrentPage(currentPage))
         dispatch(toggleIsFetching(true))

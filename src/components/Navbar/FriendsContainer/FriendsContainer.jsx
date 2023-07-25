@@ -1,11 +1,12 @@
 import Friends from "./Friends/Friends";
 import {connect} from "react-redux";
 import {Component} from "react";
-import {getFriends, setFriends} from "../../../redux/sidebar-reducer";
+import {requestFriends} from "../../../redux/sidebar-reducer";
+import {getFriends} from "../../../redux/selectors/sidebar-selectors";
 
 class FriendsContainer extends Component {
     componentDidMount() {
-        this.props.getFriends()
+        this.props.requestFriends()
     }
 
     render() {
@@ -17,9 +18,9 @@ class FriendsContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        friends: state.sidebar.friends
+        friends: getFriends(state)
     }
 
 }
 
-export default connect(mapStateToProps, {setFriends, getFriends})(FriendsContainer)
+export default connect(mapStateToProps, {requestFriends})(FriendsContainer)

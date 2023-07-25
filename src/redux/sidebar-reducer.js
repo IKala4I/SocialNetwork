@@ -40,7 +40,7 @@ export const setFriends = (friends) => ({type: SET_FRIENDS, friends})
 
 //thunks
 
-export const getFriends = () => {
+export const requestFriends = () => {
     return (dispatch) => {
         friendsAPI.getFriends()
             .then(data => {

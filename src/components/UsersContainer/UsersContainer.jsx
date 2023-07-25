@@ -1,15 +1,23 @@
 import {connect} from "react-redux";
-import {follow, getUsers, toggleIsFollowing, unfollow} from "../../redux/users-reducer";
+import {follow, requestUsers, unfollow} from "../../redux/users-reducer";
 import {Component} from "react";
 import Users from "./Users/Users";
 import Preloader from "../common/Preloader/Preloader";
+import {
+    getCurrentPage, getFollowingUsers,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/selectors/users-selectors";
+import {getIsAuth} from "../../redux/selectors/auth-selectors";
 
 class UsersContainer extends Component {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    onPageChanged = (pageNumber) => this.props.getUsers(pageNumber, this.props.pageSize)
+    onPageChanged = (pageNumber) => this.props.requestUsers(pageNumber, this.props.pageSize)
 
     render() {
         return (
@@ -31,20 +39,18 @@ class UsersContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        friends: state.sidebar.friends,
-        followingUsers: state.usersPage.followingUsers,
-        isAuth: state.auth.isAuth
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingUsers: getFollowingUsers(state),
+        isAuth: getIsAuth(state)
     }
 }
 
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    toggleIsFollowing,
-    getUsers
+    requestUsers
 })(UsersContainer);

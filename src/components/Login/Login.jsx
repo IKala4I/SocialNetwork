@@ -5,6 +5,7 @@ import {Input} from "../common/FormControls/FormControls";
 import {required} from "../../utils/validators";
 import {Navigate} from "react-router-dom";
 import classes from '../common/FormControls/FormControls.module.css'
+import {getIsAuth} from "../../redux/selectors/auth-selectors";
 
 function LoginForm({handleSubmit, error}) {
     return (
@@ -51,7 +52,7 @@ function Login({isAuth, logIn}) {
 }
 
 const mapStateToProps = state => ({
-    isAuth: state.auth.isAuth
+    isAuth: getIsAuth(state)
 })
 export default connect(mapStateToProps, {
     logIn

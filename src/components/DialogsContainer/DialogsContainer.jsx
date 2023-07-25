@@ -5,10 +5,12 @@ import {
 import {connect} from "react-redux";
 import withAuthNavigate from "../../withAuthNavigate";
 import {compose} from "redux";
+import {getDialogItems, getMessages} from "../../redux/selectors/dialogs-selectors";
 
 const mapStateToProps = (state) => {
     return {
-        state: state.dialogsPage
+        dialogItems: getDialogItems(state),
+        messages: getMessages(state)
     }
 }
 export default compose(

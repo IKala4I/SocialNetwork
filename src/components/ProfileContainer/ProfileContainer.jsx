@@ -10,6 +10,8 @@ import Preloader from "../common/Preloader/Preloader";
 import withRouter from "../../withRouter";
 import withAuthNavigate from "../../withAuthNavigate";
 import {compose} from "redux";
+import {getIsProfileFetching, getProfile, getProfileStatus} from "../../redux/selectors/profile-selectors";
+import {getUserId} from "../../redux/selectors/auth-selectors";
 
 class ProfileContainer extends Component {
     componentDidMount() {
@@ -37,12 +39,11 @@ class ProfileContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-    debugger
     return {
-        profile: state.profilePage.profile,
-        isProfileFetching: state.profilePage.isProfileFetching,
-        status: state.profilePage.status,
-        authorizedUserId: state.auth.userId
+        profile: getProfile(state),
+        isProfileFetching: getIsProfileFetching(state),
+        status: getProfileStatus(state),
+        authorizedUserId: getUserId(state)
     }
 }
 

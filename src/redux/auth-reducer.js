@@ -4,7 +4,7 @@ import {stopSubmit} from "redux-form";
 const SET_USER_DATA = 'SET-USER-DATA'
 
 const initState = {
-    id: null,
+    userId: null,
     email: null,
     login: null,
     isAuth: false
@@ -35,6 +35,7 @@ export const getAuthMe = () => {
         return authAPI.getAuthMe()
             .then(data => {
                 if (data.resultCode === 0) {
+                    debugger
                     let {id, login, email} = data.data;
                     dispatch(setUserData(id, email, login, true))
                 }
