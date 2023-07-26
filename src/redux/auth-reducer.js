@@ -35,7 +35,6 @@ export const getAuthMe = () => {
         return authAPI.getAuthMe()
             .then(data => {
                 if (data.resultCode === 0) {
-                    debugger
                     let {id, login, email} = data.data;
                     dispatch(setUserData(id, email, login, true))
                 }
