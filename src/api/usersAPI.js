@@ -1,20 +1,17 @@
-import {getInstance, instanceWithApiKey} from "./axiosInstances";
+import {getInstance, instanceWithApiKey} from "./axiosInstances"
 
 const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
-        return getInstance
-            .get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => response.data)
+    async getUsers(currentPage = 1, pageSize = 10) {
+        const response = await getInstance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return response.data
     },
-    postFollowOnUser(userID) {
-        return instanceWithApiKey
-            .post(`follow/${userID}`)
-            .then(response => response.data.resultCode)
+    async postFollowOnUser(userID) {
+        const response = await instanceWithApiKey.post(`follow/${userID}`)
+        return response.data.resultCode
     },
-    deleteFollowOnUser(userID) {
-        return instanceWithApiKey
-            .delete(`follow/${userID}`)
-            .then(response => response.data.resultCode)
+    async deleteFollowOnUser(userID) {
+        const response = await instanceWithApiKey.delete(`follow/${userID}`)
+        return response.data.resultCode
     }
 }
 

@@ -1,10 +1,9 @@
-import {getInstance} from "./axiosInstances";
+import {getInstance} from "./axiosInstances"
 
 const friendsAPI = {
-    getFriends() {
-        return getInstance
-            .get(`users?friend=true`)
-            .then(response => response.data)
+    async getFriends() {
+        const response = await getInstance.get(`users?friend=true`)
+        return response.data
     }
 }
 

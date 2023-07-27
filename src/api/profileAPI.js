@@ -1,16 +1,15 @@
-import {getInstance, instanceWithApiKey} from "./axiosInstances";
+import {getInstance, instanceWithApiKey} from "./axiosInstances"
 
 const profileAPI = {
-    getProfile(userId) {
-        return getInstance
-            .get(`profile/${userId}`)
-            .then(response => response.data)
+    async getProfile(userId) {
+        const response = await getInstance.get(`profile/${userId}`)
+        return response.data
     },
-    getStatus(userId){
+    getStatus(userId) {
         return getInstance
             .get(`profile/status/${userId}`)
     },
-    updateStatus(status){
+    updateStatus(status) {
         return instanceWithApiKey
             .put('/profile/status', {status})
     }

@@ -1,20 +1,17 @@
-import {getInstance, instanceWithApiKey} from "./axiosInstances";
+import {getInstance, instanceWithApiKey} from "./axiosInstances"
 
 const authAPI = {
-    getAuthMe() {
-        return getInstance
-            .get(`auth/me`)
-            .then(response => response.data)
+    async getAuthMe() {
+        const response = await getInstance.get(`auth/me`)
+        return response.data
     },
-    logOut() {
-        return instanceWithApiKey
-            .delete('auth/login')
-            .then(response => response.data)
+    async logOut() {
+        const response = await instanceWithApiKey.delete('auth/login')
+        return response.data
     },
-    logIn(body) {
-        return instanceWithApiKey
-            .post('auth/login', body)
-            .then(response => response.data)
+    async logIn(body) {
+        const response = await instanceWithApiKey.post('auth/login', body)
+        return response.data
     }
 }
 
