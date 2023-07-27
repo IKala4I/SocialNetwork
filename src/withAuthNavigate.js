@@ -1,6 +1,6 @@
-import {Component} from "react";
-import {Navigate} from "react-router-dom";
-import {connect} from "react-redux";
+import {Component} from "react"
+import {Navigate} from "react-router-dom"
+import {connect} from "react-redux"
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
@@ -14,11 +14,11 @@ export function withAuthNavigate(MyComponent) {
 
             return (
                 <MyComponent {...this.props} />
-            );
+            )
         }
     }
 
     return connect(mapStateToProps)(AuthenticatedComponent)
 }
 
-export default withAuthNavigate;
+export default withAuthNavigate
