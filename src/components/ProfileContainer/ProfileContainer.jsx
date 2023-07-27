@@ -8,7 +8,7 @@ import {
 } from "../../redux/reducers/profile-reducer/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import withRouter from "../../withRouter";
-import withAuthNavigate from "../../withAuthNavigate";
+import withAuthNavigate from "../../hoc/withAuthNavigate";
 import {compose} from "redux";
 import {getIsProfileFetching, getProfile, getProfileStatus} from "../../redux/selectors/profile-selectors";
 import {getUserId} from "../../redux/selectors/auth-selectors";

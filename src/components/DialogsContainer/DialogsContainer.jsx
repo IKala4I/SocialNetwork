@@ -3,7 +3,7 @@ import {
     sendMessage
 } from "../../redux/reducers/dialogs-reducer/dialogs-reducer";
 import {connect} from "react-redux";
-import withAuthNavigate from "../../withAuthNavigate";
+import withAuthNavigate from "../../hoc/withAuthNavigate";
 import {compose} from "redux";
 import {getDialogItems, getMessages} from "../../redux/selectors/dialogs-selectors";
 
