@@ -1,11 +1,11 @@
-import friendsAPI from "../api/friendsAPI";
+import friendsAPI from "../../../api/friendsAPI"
 
-const ADD_FRIEND = 'ADD-FRIEND'
-const REMOVE_FRIEND = 'REMOVE-FRIEND'
-const SET_FRIENDS = 'SET-FRIENDS'
+const ADD_FRIEND = 'sidebar/ADD-FRIEND'
+const REMOVE_FRIEND = 'sidebar/REMOVE-FRIEND'
+const SET_FRIENDS = 'sidebar/SET-FRIENDS'
 
 const initState = {
-    friends: [],
+    friends: []
 }
 
 const sidebarReducer = (state = initState, action) => {
@@ -34,20 +34,15 @@ const sidebarReducer = (state = initState, action) => {
 
 //actionCreators
 
-export const addFriend = (friend) => ({type: ADD_FRIEND, friend})
-export const removeFriend = (friendID) => ({type: REMOVE_FRIEND, friendID})
-export const setFriends = (friends) => ({type: SET_FRIENDS, friends})
+export const addFriend = friend => ({type: ADD_FRIEND, friend})
+export const removeFriend = friendID => ({type: REMOVE_FRIEND, friendID})
+export const setFriends = friends => ({type: SET_FRIENDS, friends})
 
 //thunks
 
-export const requestFriends = () => {
-    return (dispatch) => {
-        friendsAPI.getFriends()
-            .then(data => {
-                    dispatch(setFriends(data.items))
-                }
-            )
-    }
+export const requestFriends = () => async dispatch => {
+    const data = await friendsAPI.getFriends()
+    dispatch(setFriends(data.items))
 }
 
-export default sidebarReducer;
+export default sidebarReducer

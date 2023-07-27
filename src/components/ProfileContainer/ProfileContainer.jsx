@@ -5,7 +5,7 @@ import {
     getStatus,
     getUserProfile,
     updateStatus
-} from "../../redux/profile-reducer";
+} from "../../redux/reducers/profile-reducer/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import withRouter from "../../withRouter";
 import withAuthNavigate from "../../withAuthNavigate";

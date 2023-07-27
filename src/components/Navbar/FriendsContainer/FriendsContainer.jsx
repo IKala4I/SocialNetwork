@@ -1,7 +1,7 @@
 import Friends from "./Friends/Friends";
 import {connect} from "react-redux";
 import {Component} from "react";
-import {requestFriends} from "../../../redux/sidebar-reducer";
+import {requestFriends} from "../../../redux/reducers/sidebar-reducer/sidebar-reducer";
 import {getFriends} from "../../../redux/selectors/sidebar-selectors";
 
 class FriendsContainer extends Component {

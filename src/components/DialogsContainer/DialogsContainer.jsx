@@ -1,7 +1,7 @@
 import Dialogs from "./Dialogs/Dialogs";
 import {
     sendMessage
-} from "../../redux/dialogs-reducer";
+} from "../../redux/reducers/dialogs-reducer/dialogs-reducer";
 import {connect} from "react-redux";
 import withAuthNavigate from "../../withAuthNavigate";
 import {compose} from "redux";

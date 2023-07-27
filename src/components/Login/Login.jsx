@@ -1,6 +1,6 @@
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {logIn} from "../../redux/auth-reducer";
+import {logIn} from "../../redux/reducers/auth-reducer/auth-reducer";
 import {Input} from "../common/FormControls/FormControls";
 import {required} from "../../utils/validators";
 import {Navigate} from "react-router-dom";

@@ -7,7 +7,7 @@ import ProfileContainer from "../ProfileContainer/ProfileContainer";
 import HeaderContainer from "../HeaderContainer/HeaderContainer";
 import LoginPage from "../Login/Login";
 import {Component} from "react";
-import {initializeApp} from "../../redux/app-reducer";
+import {initializeApp} from "../../redux/reducers/app-reducer/app-reducer";
 import {connect} from "react-redux";
 import Preloader from "../common/Preloader/Preloader";
 import {getInitialized} from "../../redux/selectors/app-selectors";
