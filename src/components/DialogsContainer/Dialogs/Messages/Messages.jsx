@@ -1,16 +1,16 @@
-import Message from "./Message/Message";
-import MessageRows from "./MessageRows/MessageRows";
-import Icon from "./Icon/Icon";
-import classes from "./Messages.module.css";
-import {Field, reduxForm} from "redux-form";
-import {Textarea} from "../../../common/FormControls/FormControls";
-import {required, maxLength} from "../../../../utils/validators";
+import Message from "./Message/Message"
+import MessageRows from "./MessageRows/MessageRows"
+import Icon from "./Icon/Icon"
+import classes from "./Messages.module.css"
+import {Field, reduxForm} from "redux-form"
+import {Textarea} from "../../../common/FormControls/FormControls"
+import {required, maxLength} from "../../../../utils/validators"
 
 const maxLength30 = maxLength(30)
 
 function Messages({messages, sendMessage}) {
 
-    const messageComponents = messages.map(message => <Message messageData={message}/>);
+    const messageComponents = messages.map(message => <Message messageData={message}/>)
     const iconComponents = messages.map(message => <Icon name={message.sender}/>)
     const onSendMessage = (formData) => {
         sendMessage(formData.newMessageBody)
@@ -23,7 +23,7 @@ function Messages({messages, sendMessage}) {
                 <NewMessageForm onSubmit={onSendMessage}/>
             </div>
         </div>
-    );
+    )
 }
 
 let NewMessageForm = (props) => {
@@ -37,4 +37,4 @@ let NewMessageForm = (props) => {
 
 NewMessageForm = reduxForm({form: 'NewMessageForm'})(NewMessageForm)
 
-export default Messages;
+export default Messages

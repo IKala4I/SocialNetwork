@@ -12,7 +12,7 @@ function Post(props) {
                 <span>Like {props.likeCount}</span>
             </div>
         </div>
-    );
+    )
 }
 
-export default Post;
+export default Post

@@ -1,6 +1,6 @@
 import classes from './Navbar.module.css'
-import {NavLink} from "react-router-dom";
-import FriendsContainer from "./FriendsContainer/FriendsContainer";
+import {NavLink} from "react-router-dom"
+import FriendsContainer from "./FriendsContainer/FriendsContainer"
 
 function Navbar() {
     return (
@@ -46,7 +46,7 @@ function Navbar() {
             </div>
             <FriendsContainer/>
         </nav>
-    );
+    )
 }
 
-export default Navbar;
+export default Navbar

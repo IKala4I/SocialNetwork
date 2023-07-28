@@ -1,6 +1,6 @@
 import classes from "./Dialogs.module.css"
-import DialogsItems from "./DialogsItems/DialogsItems";
-import Messages from "./Messages/Messages";
+import DialogsItems from "./DialogsItems/DialogsItems"
+import Messages from "./Messages/Messages"
 
 function Dialogs({dialogItems,messages, sendMessage}) {
     return (
@@ -8,7 +8,7 @@ function Dialogs({dialogItems,messages, sendMessage}) {
             <DialogsItems dialogItems={dialogItems}/>
             <Messages messages={messages} sendMessage={sendMessage}/>
         </div>
-    );
+    )
 }
 
-export default Dialogs;
+export default Dialogs

@@ -1,17 +1,17 @@
 import './App.css'
-import Navbar from "../Navbar/Navbar";
-import {Route, Routes} from "react-router-dom";
-import UsersContainer from "../UsersContainer/UsersContainer";
-import HeaderContainer from "../HeaderContainer/HeaderContainer";
-import LoginPage from "../Login/Login";
-import {Component, lazy, Suspense} from "react";
-import {initializeApp} from "../../redux/reducers/app-reducer/app-reducer";
-import {connect} from "react-redux";
-import Preloader from "../common/Preloader/Preloader";
-import {getInitialized} from "../../redux/selectors/app-selectors";
+import Navbar from "../Navbar/Navbar"
+import {Navigate, Route, Routes} from "react-router-dom"
+import UsersContainer from "../UsersContainer/UsersContainer"
+import HeaderContainer from "../HeaderContainer/HeaderContainer"
+import {Component, lazy, Suspense} from "react"
+import {initializeApp} from "../../redux/reducers/app-reducer/app-reducer"
+import {connect} from "react-redux"
+import Preloader from "../common/Preloader/Preloader"
+import {getInitialized} from "../../redux/selectors/app-selectors"
+import LoginContainer from "../LoginContainer/LoginContainer"
 
-const DialogsContainer = lazy(() => import('../DialogsContainer/DialogsContainer'));
-const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer'));
+const DialogsContainer = lazy(() => import('../DialogsContainer/DialogsContainer'))
+const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer'))
 
 
 class App extends Component {
@@ -29,6 +29,10 @@ class App extends Component {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Routes>
+                        <Route
+                            path='/'
+                            element={<Navigate to={"/profile"}/>}
+                        />
                         <Route
                             path='/profile/:userID?'
                             element={
@@ -48,12 +52,16 @@ class App extends Component {
                         />
                         <Route
                             path='/login'
-                            element={<LoginPage/>}
+                            element={<LoginContainer/>}
+                        />
+                        <Route
+                            path='*'
+                            element={<div>404 NOT FOUND</div>}
                         />
                     </Routes>
                 </div>
             </div>
-        );
+        )
     }
 }
 
@@ -62,4 +70,4 @@ const mapStateToProps = (state) => {
         initialized: getInitialized(state)
     }
 }
-export default connect(mapStateToProps, {initializeApp})(App);
+export default connect(mapStateToProps, {initializeApp})(App)

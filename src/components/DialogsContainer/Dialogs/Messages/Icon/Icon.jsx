@@ -13,7 +13,7 @@ function Icon({name}) {
             </svg>
             <span>{name}</span>
         </div>
-    );
+    )
 }
 
-export default Icon;
+export default Icon

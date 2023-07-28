@@ -12,6 +12,19 @@ const profileAPI = {
     updateStatus(status) {
         return instanceWithApiKey
             .put('/profile/status', {status})
+    },
+    savePhoto(photoFile) {
+        const formData = new FormData();
+        formData.append("image", photoFile);
+
+        return instanceWithApiKey.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    },
+    saveProfile(profile) {
+        return instanceWithApiKey.put(`profile`, profile );
     }
 }
 

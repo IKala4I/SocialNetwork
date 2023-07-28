@@ -1,5 +1,5 @@
 import classes from './Header.module.css'
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom"
 
 function Header(props) {
 
@@ -28,7 +28,7 @@ function Header(props) {
                 }
             </div>
         </header>
-    );
+    )
 }
 
-export default Header;
+export default Header

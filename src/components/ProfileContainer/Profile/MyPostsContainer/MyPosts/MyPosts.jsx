@@ -1,13 +1,13 @@
-import Post from './Post/Post';
-import {Field, reduxForm} from "redux-form";
-import {maxLength, required} from "../../../../../utils/validators";
-import {Textarea} from "../../../../common/FormControls/FormControls";
+import Post from './Post/Post'
+import {Field, reduxForm} from "redux-form"
+import {maxLength, required} from "../../../../../utils/validators"
+import {Textarea} from "../../../../common/FormControls/FormControls"
 
 const maxLength20 = maxLength(20)
 
 const MyPosts = ({posts, addPost}) => {
     const postComponents = posts.map(post => <Post id={post.id} message={post.message}
-                                                         likeCount={post.likesCount}/>);
+                                                         likeCount={post.likesCount}/>)
 
     const onAddPost = (formData) => {
         addPost(formData.newPostText)
@@ -21,7 +21,7 @@ const MyPosts = ({posts, addPost}) => {
                 {postComponents}
             </div>
         </div>
-    );
+    )
 }
 
 let NewPostForm = (props) => {
@@ -35,4 +35,4 @@ let NewPostForm = (props) => {
 
 NewPostForm = reduxForm({form: 'NewPostForm'})(NewPostForm)
 
-export default MyPosts;
+export default MyPosts

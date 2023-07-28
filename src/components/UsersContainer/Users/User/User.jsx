@@ -1,6 +1,6 @@
 import classes from './user.module.css'
 import userPhoto from '../../../../assets/images/user.png'
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom"
 
 function User({userInfo, follow, unfollow, followingUsers, isAuth}) {
     const onFollow = () => {
@@ -43,4 +43,4 @@ function User({userInfo, follow, unfollow, followingUsers, isAuth}) {
     )
 }
 
-export default User;
+export default User

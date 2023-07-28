@@ -1,10 +1,9 @@
-import User from "./User/User";
-import classes from './users.module.css'
-import Paginator from "../../common/Paginator/Paginator";
+import User from "./User/User"
+import Paginator from "../../common/Paginator/Paginator"
 
 function Users(props) {
     return (
-        <div className='users'>
+        <div>
             <div>
                 <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged}
                            totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}/>

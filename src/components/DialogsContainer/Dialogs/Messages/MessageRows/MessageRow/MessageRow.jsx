@@ -9,4 +9,4 @@ function MessageRow({icon, message}) {
     )
 }
 
-export default MessageRow;
+export default MessageRow

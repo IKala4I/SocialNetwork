@@ -1,5 +1,5 @@
 import classes from './Friend.module.css'
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom"
 import defaultUserPhoto from '../../../../../assets/images/user.png'
 
 function Friend({data}) {
@@ -22,7 +22,7 @@ function Friend({data}) {
             </div>
         </div>
 
-    );
+    )
 }
 
-export default Friend;
+export default Friend

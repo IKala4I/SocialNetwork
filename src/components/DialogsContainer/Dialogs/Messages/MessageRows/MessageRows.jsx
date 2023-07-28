@@ -1,5 +1,5 @@
 import classes from "./MessageRows.module.css"
-import MessageRow from "./MessageRow/MessageRow";
+import MessageRow from "./MessageRow/MessageRow"
 
 function MessageRows({messages, icons}) {
     const messageRowComponents = []
@@ -14,4 +14,4 @@ function MessageRows({messages, icons}) {
     )
 }
 
-export default MessageRows;
+export default MessageRows

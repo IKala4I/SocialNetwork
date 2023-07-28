@@ -1,16 +1,16 @@
-import {connect} from "react-redux";
-import {follow, requestUsers, unfollow} from "../../redux/reducers/users-reducer/users-reducer";
-import {Component} from "react";
-import Users from "./Users/Users";
-import Preloader from "../common/Preloader/Preloader";
+import {connect} from "react-redux"
+import {follow, requestUsers, unfollow} from "../../redux/reducers/users-reducer/users-reducer"
+import {Component} from "react"
+import Users from "./Users/Users"
+import Preloader from "../common/Preloader/Preloader"
 import {
     getCurrentPage, getFollowingUsers,
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
     getUsers
-} from "../../redux/selectors/users-selectors";
-import {getIsAuth} from "../../redux/selectors/auth-selectors";
+} from "../../redux/selectors/users-selectors"
+import {getIsAuth} from "../../redux/selectors/auth-selectors"
 
 class UsersContainer extends Component {
     componentDidMount() {
@@ -53,4 +53,4 @@ export default connect(mapStateToProps, {
     follow,
     unfollow,
     requestUsers
-})(UsersContainer);
+})(UsersContainer)

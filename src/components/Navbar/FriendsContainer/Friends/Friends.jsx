@@ -11,7 +11,7 @@ function Friends({friends}) {
                 {friendComponents}
             </div>
         </div>
-    );
+    )
 }
 
-export default Friends;
+export default Friends

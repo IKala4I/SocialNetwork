@@ -1,5 +1,5 @@
-import classes from "./DialogItem.module.css";
-import {NavLink} from "react-router-dom";
+import classes from "./DialogItem.module.css"
+import {NavLink} from "react-router-dom"
 
 function DialogItem({title, id}) {
     return (
@@ -13,7 +13,7 @@ function DialogItem({title, id}) {
                 {title}
             </NavLink>
         </div>
-    );
+    )
 }
 
-export default DialogItem;
+export default DialogItem
