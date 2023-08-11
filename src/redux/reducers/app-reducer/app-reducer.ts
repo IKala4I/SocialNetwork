@@ -2,11 +2,15 @@ import {getAuthMe} from "../auth-reducer/auth-reducer"
 
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS'
 
-const initState = {
+export type InitStateType = {
+    initialized: boolean
+}
+
+const initState: InitStateType = {
     initialized: false
 }
 
-const appReducer = (state = initState, action) => {
+const appReducer = (state = initState, action: any): InitStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {
@@ -18,12 +22,16 @@ const appReducer = (state = initState, action) => {
     }
 }
 
+type InitializedSuccessActionType = {
+    type: typeof INITIALIZED_SUCCESS
+}
+
 //actionCreators
-export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS})
+export const initializedSuccess = (): InitializedSuccessActionType => ({type: INITIALIZED_SUCCESS})
 
 //thunks
 
-export const initializeApp = () => async dispatch => {
+export const initializeApp = () => async (dispatch: any) => {
     await dispatch(getAuthMe())
     dispatch(initializedSuccess())
 }
