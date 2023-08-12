@@ -11,13 +11,13 @@ const TOGGLE_IS_FETCHING = 'users/TOGGLE-IS-FETCHING'
 const TOGGLE_IS_FOLLOWING = 'users/TOGGLE-IS-FOLLOWING'
 
 type InitStateType = {
-    users: any[]
+    users: any
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
     isFollowing: boolean
-    followingUsers: any[]
+    followingUsers: any
 }
 
 const initState = {

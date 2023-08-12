@@ -7,7 +7,7 @@ const TOGGLE_IS_PROFILE_FETCHING = 'profile/TOGGLE-IS-PROFILE-FETCHING'
 const SET_STATUS = 'profile/SET-STATUS'
 const SAVE_PHOTO_SUCCESS = 'profile/SAVE-PHOTO-SUCCESS'
 
-type PostType = {
+export type PostType = {
     id: number,
     message: string,
     likesCount: number

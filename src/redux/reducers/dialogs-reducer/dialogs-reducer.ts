@@ -1,11 +1,11 @@
 const SEND_MESSAGE = 'dialogs/SEND-MESSAGE'
 
-type DialogType = {
+export type DialogType = {
     id: number,
     title: string
 }
 
-type MessageType = {
+export type MessageType = {
     id: number,
     message: string,
     sender: string,
