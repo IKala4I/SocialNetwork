@@ -2,7 +2,7 @@ import {getAuthMe} from "../auth-reducer/auth-reducer"
 
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS'
 
-export type InitStateType = {
+type InitStateType = {
     initialized: boolean
 }
 

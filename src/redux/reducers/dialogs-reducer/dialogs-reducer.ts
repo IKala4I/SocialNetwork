@@ -1,6 +1,23 @@
 const SEND_MESSAGE = 'dialogs/SEND-MESSAGE'
 
-const initState = {
+type DialogType = {
+    id: number,
+    title: string
+}
+
+type MessageType = {
+    id: number,
+    message: string,
+    sender: string,
+    receiver: string
+}
+
+type InitStateType = {
+    dialogItems: Array<DialogType>,
+    messages: Array<MessageType>
+}
+
+const initState: InitStateType = {
     dialogItems: [
         {
             id: 1,
@@ -41,7 +58,7 @@ const initState = {
     ]
 }
 
-const dialogsReducer = (state = initState, action) => {
+const dialogsReducer = (state = initState, action: any): InitStateType => {
     switch (action.type) {
         case SEND_MESSAGE:
             return {
@@ -58,6 +75,11 @@ const dialogsReducer = (state = initState, action) => {
     }
 }
 
-export const sendMessage = newMessageBody => ({type: SEND_MESSAGE, newMessageBody})
+//action creators
+type SendMessageActionType = {
+    type: typeof SEND_MESSAGE,
+    newMessageBody: string
+}
+export const sendMessage = (newMessageBody: string): SendMessageActionType => ({type: SEND_MESSAGE, newMessageBody})
 
 export default dialogsReducer

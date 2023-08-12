@@ -13,7 +13,7 @@ const initState = {
     captchaUrl: null as (string | null)
 }
 
-export type InitStateType = typeof initState
+type InitStateType = typeof initState
 
 const authReducer = (state = initState, action: any): InitStateType => {
     switch (action.type) {
