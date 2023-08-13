@@ -13,9 +13,32 @@ export type PostType = {
     likesCount: number
 }
 
+type PhotosType = {
+    small: string,
+    large: string
+}
+
+export type ProfileType = {
+    userId: number,
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    contacts: {
+        github: string,
+        vk: string,
+        facebook: string,
+        instagram: string,
+        twitter: string,
+        website: string,
+        youtube: string,
+        mainLink: string
+    },
+    photos: PhotosType
+}
+
 type InitStateType = {
     posts: Array<PostType>,
-    profile: any,
+    profile: null | ProfileType,
     isProfileFetching: boolean,
     status: string
 }
@@ -68,7 +91,7 @@ const profileReducer = (state = initState, action: any): InitStateType => {
         case SAVE_PHOTO_SUCCESS:
             return {
                 ...state,
-                profile: {...state.profile, photos: action.photos}
+                profile: {...state.profile as ProfileType, photos: action.photos}
             }
         default:
             return state
@@ -100,17 +123,17 @@ type SetStatusType = {
 
 type SavePhotoSuccessType = {
     type: typeof SAVE_PHOTO_SUCCESS,
-    photos: any
+    photos: PhotosType
 }
 export const addPost = (newPostText: string): AddPostActionType => ({type: ADD_POST, newPostText})
-export const setProfile = (profile: any): SetProfileType => ({type: SET_PROFILE, profile})
+export const setProfile = (profile: ProfileType): SetProfileType => ({type: SET_PROFILE, profile})
 export const toggleIsProfileFetching = (isProfileFetching: boolean): ToggleIsProfileFetchingType => ({
     type: TOGGLE_IS_PROFILE_FETCHING,
     isProfileFetching
 })
 export const setStatus = (status: string): SetStatusType => ({type: SET_STATUS, status})
 
-export const savePhotoSuccess = (photos: any): SavePhotoSuccessType => ({type: SAVE_PHOTO_SUCCESS, photos})
+export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType => ({type: SAVE_PHOTO_SUCCESS, photos})
 
 //thunks
 
@@ -142,7 +165,7 @@ export const savePhoto = (file: any) => async (dispatch: any) => {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
-export const saveProfile = (profile: any) => async (dispatch: any, getState: any) => {
+export const saveProfile = (profile: ProfileType) => async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId
     const response = await profileAPI.saveProfile(profile)
 

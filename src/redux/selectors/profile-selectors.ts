@@ -1,6 +1,6 @@
-import {PostType} from '../reducers/profile-reducer/profile-reducer'
+import {PostType, ProfileType} from '../reducers/profile-reducer/profile-reducer'
 
-export const getProfile = (state: any): any => {
+export const getProfile = (state: any): ProfileType => {
     return state.profilePage.profile
 }
 export const getPosts = (state: any): Array<PostType> => {

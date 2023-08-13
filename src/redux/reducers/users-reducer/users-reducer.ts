@@ -10,14 +10,25 @@ const UPDATE_CURRENT_PAGE = 'users/UPDATE-CURRENT-PAGE'
 const TOGGLE_IS_FETCHING = 'users/TOGGLE-IS-FETCHING'
 const TOGGLE_IS_FOLLOWING = 'users/TOGGLE-IS-FOLLOWING'
 
+export type UserType = {
+    id: number,
+    name: string
+    status: string
+    photos: {
+        small: string | null
+        large: string | null
+    }
+    followed: boolean
+}
+
 type InitStateType = {
-    users: any
+    users: Array<UserType>
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
     isFollowing: boolean
-    followingUsers: any
+    followingUsers: Array<number>
 }
 
 const initState = {
@@ -89,7 +100,7 @@ type UnfollowActionType = {
 
 type SetUsersActionType = {
     type: typeof SET_USERS,
-    users: any
+    users: Array<UserType>
 }
 
 type SetTotalUsersCountActionType = {
@@ -121,7 +132,7 @@ export const unfollowAction = (userId: number): UnfollowActionType => ({
     type: UNFOLLOW,
     userId
 })
-export const setUsers = (users: any): SetUsersActionType => ({
+export const setUsers = (users: Array<UserType>): SetUsersActionType => ({
     type: SET_USERS,
     users
 })
@@ -167,15 +178,15 @@ export const unfollow = (userId: number) => async (dispatch: any) => {
         dispatch(toggleIsFollowing(false, userId))
     }
 }
-export const follow = (userInfo: any) => async (dispatch: any) => {
-    dispatch(toggleIsFollowing(true, userInfo.id))
+export const follow = (user: UserType) => async (dispatch: any) => {
+    dispatch(toggleIsFollowing(true, user.id))
 
-    const resultCode = await usersAPI.postFollowOnUser(userInfo.id)
+    const resultCode = await usersAPI.postFollowOnUser(user.id)
 
     if (resultCode === 0) {
-        dispatch(addFriend(userInfo))
-        dispatch(followAction(userInfo.id))
-        dispatch(toggleIsFollowing(false, userInfo.id))
+        dispatch(addFriend(user))
+        dispatch(followAction(user.id))
+        dispatch(toggleIsFollowing(false, user.id))
     }
 }
 

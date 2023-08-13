@@ -1,6 +1,7 @@
 import {createSelector} from "reselect"
+import {UserType} from '../reducers/users-reducer/users-reducer'
 
-const getUsersSelector = (state: any): any => {
+const getUsersSelector = (state: any): Array<UserType> => {
     return state.usersPage.users
 }
 export const getUsers = createSelector(getUsersSelector,
@@ -20,6 +21,6 @@ export const getTotalUsersCount = (state: any): number => {
 export const getCurrentPage = (state: any): number => {
     return state.usersPage.currentPage
 }
-export const getFollowingUsers = (state: any): any => {
+export const getFollowingUsers = (state: any): Array<number> => {
     return state.usersPage.followingUsers
 }

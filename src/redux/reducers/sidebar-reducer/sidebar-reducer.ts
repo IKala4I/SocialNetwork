@@ -1,11 +1,12 @@
 import friendsAPI from "../../../api/friendsAPI"
+import {UserType} from '../users-reducer/users-reducer'
 
 const ADD_FRIEND = 'sidebar/ADD-FRIEND'
 const REMOVE_FRIEND = 'sidebar/REMOVE-FRIEND'
 const SET_FRIENDS = 'sidebar/SET-FRIENDS'
 
 type InitStateType = {
-    friends: Array<any>
+    friends: Array<UserType>
 }
 
 const initState: InitStateType = {
@@ -40,7 +41,7 @@ const sidebarReducer = (state = initState, action: any): InitStateType => {
 
 type AddFriendType = {
     type: typeof ADD_FRIEND,
-    friend: any
+    friend: UserType
 }
 
 type RemoveFriendType = {
@@ -50,11 +51,11 @@ type RemoveFriendType = {
 
 type SetFriendsType = {
     type: typeof SET_FRIENDS,
-    friends: any
+    friends: Array<UserType>
 }
-export const addFriend = (friend: any): AddFriendType => ({type: ADD_FRIEND, friend})
+export const addFriend = (friend: UserType): AddFriendType => ({type: ADD_FRIEND, friend})
 export const removeFriend = (friendId: number): RemoveFriendType => ({type: REMOVE_FRIEND, friendId})
-export const setFriends = (friends: any): SetFriendsType => ({type: SET_FRIENDS, friends})
+export const setFriends = (friends: Array<UserType>): SetFriendsType => ({type: SET_FRIENDS, friends})
 
 //thunks
 
