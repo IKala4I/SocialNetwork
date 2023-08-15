@@ -43,17 +43,17 @@ const Paginator: FC<PaginatorPropsType> = ({
                 </button>
             }
             {pages
-                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map((p) => {
+                .filter(pageNumber => pageNumber >= leftPortionPageNumber && pageNumber <= rightPortionPageNumber)
+                .map((pageNumber) => {
                         return <span className={cn({
-                            [styles.selectedPage]: currentPage === p
+                            [styles.selectedPage]: currentPage === pageNumber
                         }, styles.pageNumber)}
-                                     key={p}
-                                     onClick={(e) => {
-                                         onPageChanged(p)
+                                     key={pageNumber}
+                                     onClick={() => {
+                                         onPageChanged(pageNumber)
                                      }}
                         >
-                        {p}
+                        {pageNumber}
                     </span>
                     }
                 )

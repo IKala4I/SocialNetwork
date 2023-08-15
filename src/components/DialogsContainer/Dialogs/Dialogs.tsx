@@ -1,12 +1,13 @@
 import classes from "./Dialogs.module.css"
 import DialogsItems from "./DialogsItems/DialogsItems"
 import Messages from "./Messages/Messages"
+import {DialogsPropsType} from '../DialogsContainer'
 
-function Dialogs({dialogItems,messages, sendMessage}) {
+function Dialogs(props:DialogsPropsType) {
     return (
         <div className={classes.dialogs}>
-            <DialogsItems dialogItems={dialogItems}/>
-            <Messages messages={messages} sendMessage={sendMessage}/>
+            <DialogsItems dialogItems={props.dialogItems}/>
+            <Messages messages={props.messages} sendMessage={props.sendMessage}/>
         </div>
     )
 }

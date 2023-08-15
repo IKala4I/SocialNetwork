@@ -1,7 +1,13 @@
 import classes from './DialogsItems.module.css'
 import DialogItem from "./DialogItem/DialogItem"
+import {FC} from 'react'
+import {DialogType} from '../../../../redux/reducers/dialogs-reducer/dialogs-reducer'
 
-function DialogsItems({dialogItems}) {
+type DialogsItemsPropsType = {
+    dialogItems: Array<DialogType>
+}
+
+const DialogsItems: FC<DialogsItemsPropsType> = ({dialogItems}) => {
     const dialogItemComponents = dialogItems.map(dialog => <DialogItem title={dialog.title} id={dialog.id}/>)
 
     return (
