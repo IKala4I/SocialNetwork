@@ -5,16 +5,17 @@ import UsersContainer from "../UsersContainer/UsersContainer"
 import HeaderContainer from "../HeaderContainer/HeaderContainer"
 import {Component, lazy, Suspense} from "react"
 import {initializeApp} from "../../redux/reducers/app-reducer/app-reducer"
-import {connect} from "react-redux"
+import {connect, ConnectedProps} from "react-redux"
 import Preloader from "../common/Preloader/Preloader"
 import {getInitialized} from "../../redux/selectors/app-selectors"
 import LoginContainer from "../LoginContainer/LoginContainer"
+import {AppStateType} from '../../redux/redux-store'
 
 const DialogsContainer = lazy(() => import('../DialogsContainer/DialogsContainer'))
 const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer'))
 
 
-class App extends Component {
+class App extends Component<PropsFromRedux> {
     componentDidMount() {
         this.props.initializeApp()
     }
@@ -65,9 +66,12 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state : AppStateType) => {
     return {
         initialized: getInitialized(state)
     }
 }
-export default connect(mapStateToProps, {initializeApp})(App)
+
+const connector = connect(mapStateToProps, {initializeApp})
+type PropsFromRedux = ConnectedProps<typeof connector>
+export default connector(App)
