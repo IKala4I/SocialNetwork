@@ -1,12 +1,14 @@
-export const getIsAuth = (state: any): boolean => {
+import {AppStateType} from '../redux-store'
+
+export const getIsAuth = (state: AppStateType): boolean => {
     return state.auth.isAuth
 }
-export const getUserId = (state: any): number => {
+export const getUserId = (state: AppStateType): number | null => {
     return state.auth.userId
 }
-export const getLogin = (state: any): string => {
+export const getLogin = (state: AppStateType): string | null => {
     return state.auth.login
 }
-export const getEmail = (state: any): string => {
+export const getEmail = (state: AppStateType): string | null => {
     return state.auth.email
 }

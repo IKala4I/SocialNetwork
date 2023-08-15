@@ -31,7 +31,7 @@ type InitStateType = {
     followingUsers: Array<number>
 }
 
-const initState = {
+const initState: InitStateType = {
     users: [],
     pageSize: 100,
     totalUsersCount: 0,
