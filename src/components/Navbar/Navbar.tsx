@@ -1,8 +1,9 @@
 import classes from './Navbar.module.css'
 import {NavLink} from "react-router-dom"
 import FriendsContainer from "./FriendsContainer/FriendsContainer"
+import {FC} from 'react'
 
-function Navbar() {
+const Navbar: FC = () => {
     return (
         <nav className={classes.sidebarNav}>
             <div className={classes.item}>

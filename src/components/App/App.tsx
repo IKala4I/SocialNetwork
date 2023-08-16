@@ -15,7 +15,7 @@ const DialogsContainer = lazy(() => import('../DialogsContainer/DialogsContainer
 const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer'))
 
 
-class App extends Component<PropsFromRedux> {
+class App extends Component<AppPropsType> {
     componentDidMount() {
         this.props.initializeApp()
     }
@@ -73,5 +73,5 @@ const mapStateToProps = (state : AppStateType) => {
 }
 
 const connector = connect(mapStateToProps, {initializeApp})
-type PropsFromRedux = ConnectedProps<typeof connector>
+type AppPropsType = ConnectedProps<typeof connector>
 export default connector(App)

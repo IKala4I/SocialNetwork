@@ -1,8 +1,14 @@
 import classes from './Friends.module.css'
 import Friend from './Friend/Friend'
+import {UserType} from '../../../../redux/reducers/users-reducer/users-reducer'
+import {FC} from 'react'
 
-function Friends({friends}) {
-    const friendComponents = friends?.map(friendData => <Friend data={friendData}/>)
+export type MapStateFriendsType = {
+    friends: Array<UserType>
+}
+
+const Friends: FC<MapStateFriendsType> = ({friends}) => {
+    const friendComponents = friends?.map(friend => <Friend friend={friend}/>)
 
     return (
         <div className={`${classes.item} ${classes.friends}`}>

@@ -2,17 +2,24 @@ import Message from "./Message/Message"
 import MessageRows from "./MessageRows/MessageRows"
 import Icon from "./Icon/Icon"
 import classes from "./Messages.module.css"
-import {Field, reduxForm} from "redux-form"
-import {Textarea} from "../../../common/FormControls/FormControls"
-import {required, maxLength} from "../../../../utils/validators"
+import {MessageType} from '../../../../redux/reducers/dialogs-reducer/dialogs-reducer'
+import {FC} from 'react'
+import NewMessageForm from './NewMessageForm/NewMessageForm'
 
-const maxLength30 = maxLength(30)
+type MessagesPropsType = {
+    messages: Array<MessageType>,
+    sendMessage: (messageBody: string) => void
+}
 
-function Messages({messages, sendMessage}) {
+export type NewMessageFormDataType = {
+    newMessageBody: string
+}
+
+const Messages: FC<MessagesPropsType> = ({messages, sendMessage}) => {
 
     const messageComponents = messages.map(message => <Message messageData={message}/>)
     const iconComponents = messages.map(message => <Icon name={message.sender}/>)
-    const onSendMessage = (formData) => {
+    const onSendMessage = (formData: NewMessageFormDataType) => {
         sendMessage(formData.newMessageBody)
     }
 
@@ -25,16 +32,5 @@ function Messages({messages, sendMessage}) {
         </div>
     )
 }
-
-let NewMessageForm = (props) => {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <Field name='newMessageBody' component={Textarea} validate={[required, maxLength30]}/>
-            <button type='submit'>Send message</button>
-        </form>
-    )
-}
-
-NewMessageForm = reduxForm({form: 'NewMessageForm'})(NewMessageForm)
 
 export default Messages

@@ -1,5 +1,5 @@
 import Dialogs from "./Dialogs/Dialogs"
-import {DialogType, MessageType, sendMessage} from "../../redux/reducers/dialogs-reducer/dialogs-reducer"
+import {sendMessage} from "../../redux/reducers/dialogs-reducer/dialogs-reducer"
 import {connect, ConnectedProps} from "react-redux"
 import withAuthNavigate from "../../hoc/withAuthNavigate"
 import {compose} from "redux"

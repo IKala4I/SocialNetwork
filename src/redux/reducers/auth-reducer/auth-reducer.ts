@@ -72,7 +72,7 @@ export const logOut = () => async (dispatch: any) => {
         dispatch(setUserData(null, null, null, false))
 }
 
-type LoginBodyType = {
+export type LoginBodyType = {
     email: string,
     password: string,
     rememberMe: boolean,

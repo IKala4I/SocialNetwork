@@ -1,6 +1,10 @@
 import classes from "./Icon.module.css"
+import {FC} from 'react'
 
-function Icon({name}) {
+type IconPropsType = {
+    name: string
+}
+const Icon: FC<IconPropsType> = ({name}) => {
     return (
         <div className={classes.icon}>
             <svg

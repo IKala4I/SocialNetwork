@@ -1,5 +1,5 @@
 import {Component} from "react"
-import Profile from "./Profile/Profile"
+import Profile, {MapDispatchProfileType, MapStateProfileType} from "./Profile/Profile"
 import {connect} from "react-redux"
 import {
     getStatus,
@@ -12,8 +12,9 @@ import withAuthNavigate from "../../hoc/withAuthNavigate"
 import {compose} from "redux"
 import {getIsProfileFetching, getProfile, getProfileStatus} from "../../redux/selectors/profile-selectors"
 import {getUserId} from "../../redux/selectors/auth-selectors"
+import {AppStateType} from '../../redux/redux-store'
 
-class ProfileContainer extends Component {
+class ProfileContainer extends Component<MapStatePropsType & MapDispatchPropsType & any> {
     refreshProfile() {
         let userId = this.props.router.params.userId
 
@@ -29,8 +30,8 @@ class ProfileContainer extends Component {
         this.refreshProfile();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.router.params.userId !== prevProps.router.params.userId ) {
+    componentDidUpdate(prevProps: (MapStatePropsType & any), prevState: AppStateType) {
+        if (this.props.router.params.userId !== prevProps.router.params.userId) {
             this.refreshProfile();
         }
     }
@@ -54,7 +55,21 @@ class ProfileContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+type MapStateExtraPropsType = {
+    isProfileFetching: boolean,
+    authorizedUserId: number | null
+}
+
+type MapStatePropsType = MapStateExtraPropsType & MapStateProfileType
+
+type MapDispatchExtraPropsType = {
+    getStatus: (userId: number) => void,
+    getUserProfile: (userId: number) => void
+}
+
+type MapDispatchPropsType = MapDispatchExtraPropsType & MapDispatchProfileType
+
+const mapStateToProps = (state: AppStateType) => {
     return {
         profile: getProfile(state),
         isProfileFetching: getIsProfileFetching(state),
@@ -65,7 +80,7 @@ const mapStateToProps = (state) => {
 
 export default compose(
     withAuthNavigate,
-    connect(mapStateToProps, {
+    connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
         getUserProfile,
         getStatus,
         updateStatus,

@@ -1,6 +1,11 @@
 import classes from "./MessageRow.module.css"
+import {FC, ReactNode} from 'react'
 
-function MessageRow({icon, message}) {
+type MessageRowPropsType = {
+    icon: ReactNode,
+    message: ReactNode
+}
+const MessageRow: FC<MessageRowPropsType> = ({icon, message}) => {
     return (
         <div className={classes.messageRow}>
             {icon}
