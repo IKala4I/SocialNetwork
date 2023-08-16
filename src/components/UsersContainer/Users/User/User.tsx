@@ -1,8 +1,29 @@
 import classes from './user.module.css'
 import userPhoto from '../../../../assets/images/user.png'
 import {NavLink} from "react-router-dom"
+import {UserType} from "../../../../redux/reducers/users-reducer/users-reducer";
+import {FC} from "react";
 
-function User({userInfo, follow, unfollow, followingUsers, isAuth}) {
+export type MapStateUserPropsType = {
+    followingUsers: Array<number>,
+    isAuth: boolean
+}
+
+export type MapDispatchUserPropsType = {
+    follow: (user: UserType) => void,
+    unfollow: (userId: number) => void
+}
+
+type MapStateOwnUserPropsType = {
+    userInfo: UserType,
+}
+const User: FC<MapStateUserPropsType & MapDispatchUserPropsType & MapStateOwnUserPropsType> = ({
+                                                                                                   userInfo,
+                                                                                                   follow,
+                                                                                                   unfollow,
+                                                                                                   followingUsers,
+                                                                                                   isAuth
+                                                                                               }) => {
     const onFollow = () => {
         follow(userInfo)
     }

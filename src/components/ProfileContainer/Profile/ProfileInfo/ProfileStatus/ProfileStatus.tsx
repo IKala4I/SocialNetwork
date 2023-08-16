@@ -1,14 +1,18 @@
-import {useEffect, useState} from "react"
+import {FC, useEffect, useState} from "react"
 
-function ProfileStatus(props) {
+type ProfileStatusPropsType = {
+    status: string,
+    updateStatus: (status: string) => void
+}
+const ProfileStatus: FC<ProfileStatusPropsType> = ({status, updateStatus}) => {
 
     let [editMode, setEditMode] = useState(false)
-    let [status, setStatus] = useState(props.status)
+    let [stateStatus, setStateStatus] = useState(status)
 
     useEffect(() => {
-        if (status !== props.status)
-            setStatus(props.status)
-    }, [props.status])
+        if (stateStatus !== status)
+            setStateStatus(status)
+    }, [status])
 
     const activateEditMode = () => {
         setEditMode(true)
@@ -16,11 +20,11 @@ function ProfileStatus(props) {
 
     const deactivateEditMode = () => {
         setEditMode(false)
-        props.updateStatus(status)
+        updateStatus(stateStatus)
     }
 
-    const onStatusChange = (e) => {
-        setStatus(e.currentTarget.value)
+    const onStatusChange = (e: any) => {
+        setStateStatus(e.currentTarget.value)
     }
 
 
@@ -30,13 +34,13 @@ function ProfileStatus(props) {
                 ?
                 <div>
                     <input onChange={onStatusChange} autoFocus onBlur={deactivateEditMode}
-                           value={status}
+                           value={stateStatus}
                     />
                 </div>
                 :
                 <div>
                         <span onDoubleClick={activateEditMode}>
-                            {status || '-----'}
+                            {stateStatus || '-----'}
                         </span>
                 </div>
             }

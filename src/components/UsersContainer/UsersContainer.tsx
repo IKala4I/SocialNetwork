@@ -1,4 +1,4 @@
-import {connect} from "react-redux"
+import {connect, ConnectedProps} from "react-redux"
 import {follow, requestUsers, unfollow} from "../../redux/reducers/users-reducer/users-reducer"
 import {Component} from "react"
 import Users from "./Users/Users"
@@ -11,13 +11,14 @@ import {
     getUsers
 } from "../../redux/selectors/users-selectors"
 import {getIsAuth} from "../../redux/selectors/auth-selectors"
+import {AppStateType} from "../../redux/redux-store";
 
-class UsersContainer extends Component {
+class UsersContainer extends Component<PropsFromRedux> {
     componentDidMount() {
         this.props.requestUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    onPageChanged = (pageNumber) => this.props.requestUsers(pageNumber, this.props.pageSize)
+    onPageChanged = (pageNumber: number) => this.props.requestUsers(pageNumber, this.props.pageSize)
 
     render() {
         return (
@@ -37,7 +38,7 @@ class UsersContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -49,8 +50,14 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {
+const connector = connect(mapStateToProps, {
     follow,
     unfollow,
     requestUsers
-})(UsersContainer)
+})
+
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(UsersContainer)
+

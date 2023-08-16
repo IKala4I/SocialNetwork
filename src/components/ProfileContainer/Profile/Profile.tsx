@@ -11,14 +11,14 @@ export type MapStateProfileType = {
 export type MapDispatchProfileType = {
     updateStatus: (status: string) => void,
     savePhoto: (file: any) => void,
-    saveProfile: (profile: ProfileType) => void
+    saveProfile: (profile: ProfileType) => any
 }
 
 type ProfileExtraPropsType = {
     isOwner: boolean
 }
 
-type ProfilePropsType = MapStateProfileType & ProfileExtraPropsType
+export type ProfilePropsType = MapStateProfileType & ProfileExtraPropsType
 
 const Profile: FC<ProfilePropsType & MapDispatchProfileType> = (props) => {
     return (
