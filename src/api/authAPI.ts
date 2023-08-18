@@ -1,5 +1,7 @@
 import {getInstance, instanceWithApiKey} from "./axiosInstances"
 
+
+
 const authAPI = {
     async getAuthMe() {
         const response = await getInstance.get(`auth/me`)
