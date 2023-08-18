@@ -1,30 +1,50 @@
 import {getInstance, instanceWithApiKey} from "./axiosInstances"
+import {ProfileType} from "../redux/reducers/profile-reducer/profile-reducer";
+import {CommonFieldsType} from "./authAPI";
+
+type UpdateStatusType = {
+    data: {}
+}
+
+type SaveProfileType = {
+    data: {}
+}
+
+type SavePhotoType = {
+    data: {
+        photos: {
+            small: string,
+            large: string
+        }
+    }
+}
 
 const profileAPI = {
-    async getProfile(userId) {
-        const response = await getInstance.get(`profile/${userId}`)
+    async getProfile(userId: number) {
+        const response = await getInstance.get<ProfileType>(`profile/${userId}`)
         return response.data
     },
-    getStatus(userId) {
-        return getInstance
-            .get(`profile/status/${userId}`)
+    getStatus(userId: number) {
+        return getInstance.get<string>(`profile/status/${userId}`)
     },
-    updateStatus(status) {
-        return instanceWithApiKey
-            .put('/profile/status', {status})
+    async updateStatus(status: string) {
+        const response = await instanceWithApiKey
+            .put<UpdateStatusType & CommonFieldsType>('/profile/status', {status})
+        return response.data
     },
-    savePhoto(photoFile) {
+    async savePhoto(photoFile: any) {
         const formData = new FormData();
         formData.append("image", photoFile);
 
-        return instanceWithApiKey.put(`profile/photo`, formData, {
+        const response = await instanceWithApiKey.put<SavePhotoType & CommonFieldsType>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        });
+        })
+        return response.data
     },
-    saveProfile(profile) {
-        return instanceWithApiKey.put(`profile`, profile );
+    saveProfile(profile: ProfileType) {
+        return instanceWithApiKey.put<SaveProfileType & CommonFieldsType>(`profile`, profile);
     }
 }
 

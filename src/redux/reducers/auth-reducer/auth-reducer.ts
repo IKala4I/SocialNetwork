@@ -1,6 +1,7 @@
 import authAPI from "../../../api/authAPI"
 import {stopSubmit} from "redux-form"
 import {securityAPI} from "../../../api/securityAPI"
+import {CaptchaResultCode, ResultCodes} from "../../../api/resultCodes";
 
 const SET_USER_DATA = 'auth/SET-USER-DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'auth/GET-CAPTCHA-URL-SUCCESS'
@@ -60,7 +61,7 @@ export const getCaptchaUrlSuccess = (captchaUrl: string): GetCaptchaUrlSuccessAc
 export const getAuthMe = () => async (dispatch: any) => {
     const data = await authAPI.getAuthMe()
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodes.Success) {
         let {id, login, email} = data.data
         dispatch(setUserData(id, email, login, true))
     }
@@ -68,7 +69,7 @@ export const getAuthMe = () => async (dispatch: any) => {
 export const logOut = () => async (dispatch: any) => {
     const data = await authAPI.logOut()
 
-    if (data.resultCode === 0)
+    if (data.resultCode === ResultCodes.Success)
         dispatch(setUserData(null, null, null, false))
 }
 
@@ -82,10 +83,10 @@ export type LoginBodyType = {
 export const logIn = (body: LoginBodyType) => async (dispatch: any) => {
     const data = await authAPI.logIn(body)
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodes.Success) {
         dispatch(getAuthMe())
     } else {
-        if (data.resultCode === 10) {
+        if (data.resultCode === CaptchaResultCode.CaptchaIsRequired) {
             dispatch(getCaptchaUrl());
         }
 
@@ -94,7 +95,7 @@ export const logIn = (body: LoginBodyType) => async (dispatch: any) => {
     }
 }
 
-export const getCaptchaUrl = () => async (dispatch:any) => {
+export const getCaptchaUrl = () => async (dispatch: any) => {
     const response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.data.url;
     dispatch(getCaptchaUrlSuccess(captchaUrl));

@@ -1,6 +1,7 @@
 import usersAPI from "../../../api/usersAPI"
 import {addFriend, removeFriend} from "../sidebar-reducer/sidebar-reducer"
 import {updateObjectInArray} from "../../../utils/object-helpers"
+import {ResultCodes} from "../../../api/resultCodes";
 
 const FOLLOW = 'users/FOLLOW'
 const UNFOLLOW = 'users/UNFOLLOW'
@@ -172,7 +173,7 @@ export const unfollow = (userId: number) => async (dispatch: any) => {
 
     const resultCode = await usersAPI.deleteFollowOnUser(userId)
 
-    if (resultCode === 0) {
+    if (resultCode === ResultCodes.Success) {
         dispatch(removeFriend(userId))
         dispatch(unfollowAction(userId))
         dispatch(toggleIsFollowing(false, userId))
@@ -183,7 +184,7 @@ export const follow = (user: UserType) => async (dispatch: any) => {
 
     const resultCode = await usersAPI.postFollowOnUser(user.id)
 
-    if (resultCode === 0) {
+    if (resultCode === ResultCodes.Success) {
         dispatch(addFriend(user))
         dispatch(followAction(user.id))
         dispatch(toggleIsFollowing(false, user.id))

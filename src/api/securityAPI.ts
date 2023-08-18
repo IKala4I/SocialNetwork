@@ -1,7 +1,11 @@
 import {getInstance} from "./axiosInstances"
 
+type CaptchaUrlType = {
+    url: string
+}
+
 export const securityAPI = {
     getCaptchaUrl() {
-        return getInstance.get(`security/get-captcha-url`)
+        return getInstance.get<CaptchaUrlType>(`security/get-captcha-url`)
     }
 }
