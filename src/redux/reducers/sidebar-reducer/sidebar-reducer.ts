@@ -1,9 +1,6 @@
 import friendsAPI from "../../../api/friendsAPI"
 import {UserType} from '../users-reducer/users-reducer'
-
-const ADD_FRIEND = 'sidebar/ADD-FRIEND'
-const REMOVE_FRIEND = 'sidebar/REMOVE-FRIEND'
-const SET_FRIENDS = 'sidebar/SET-FRIENDS'
+import {InferActionsTypes} from "../../redux-store";
 
 type InitStateType = {
     friends: Array<UserType>
@@ -13,21 +10,21 @@ const initState: InitStateType = {
     friends: []
 }
 
-const sidebarReducer = (state = initState, action: any): InitStateType => {
+type ActionsType = InferActionsTypes<typeof sidebarActions>
+
+const sidebarReducer = (state = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
-        case ADD_FRIEND:
+        case 'ADD_FRIEND':
             return {
                 ...state,
                 friends: [...state.friends, action.friend]
             }
-        case
-        REMOVE_FRIEND:
+        case 'REMOVE_FRIEND':
             return {
                 ...state,
                 friends: state.friends.filter(friend => friend.id !== action.friendId)
             }
-        case
-        SET_FRIENDS:
+        case 'SET_FRIENDS':
             return {
                 ...state,
                 friends: action.friends
@@ -38,30 +35,16 @@ const sidebarReducer = (state = initState, action: any): InitStateType => {
 }
 
 //actionCreators
-
-type AddFriendType = {
-    type: typeof ADD_FRIEND,
-    friend: UserType
+export const sidebarActions = {
+    addFriend: (friend: UserType) => ({type: 'ADD_FRIEND', friend} as const),
+    removeFriend: (friendId: number) => ({type: 'REMOVE_FRIEND', friendId} as const),
+    setFriends: (friends: Array<UserType>) => ({type: 'SET_FRIENDS', friends} as const)
 }
-
-type RemoveFriendType = {
-    type: typeof REMOVE_FRIEND,
-    friendId: number
-}
-
-type SetFriendsType = {
-    type: typeof SET_FRIENDS,
-    friends: Array<UserType>
-}
-export const addFriend = (friend: UserType): AddFriendType => ({type: ADD_FRIEND, friend})
-export const removeFriend = (friendId: number): RemoveFriendType => ({type: REMOVE_FRIEND, friendId})
-export const setFriends = (friends: Array<UserType>): SetFriendsType => ({type: SET_FRIENDS, friends})
-
 //thunks
 
 export const requestFriends = () => async (dispatch: any) => {
     const data = await friendsAPI.getFriends()
-    dispatch(setFriends(data.items))
+    dispatch(sidebarActions.setFriends(data.items))
 }
 
 export default sidebarReducer

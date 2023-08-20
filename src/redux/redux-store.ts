@@ -21,6 +21,8 @@ const reducers = combineReducers({
 type RootReducer = typeof reducers
 export type AppStateType = ReturnType<RootReducer>
 
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 export default store
