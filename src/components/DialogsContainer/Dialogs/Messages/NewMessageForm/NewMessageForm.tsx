@@ -1,14 +1,16 @@
 import {FC} from 'react'
-import {Field, InjectedFormProps, reduxForm} from 'redux-form'
-import {Textarea} from '../../../../common/FormControls/FormControls'
+import {InjectedFormProps, reduxForm} from 'redux-form'
+import {createField, GetStringKeys, Textarea} from '../../../../common/FormControls/FormControls'
 import {maxLength, required} from '../../../../../utils/validators'
 import {NewMessageFormDataType} from '../Messages'
 
-const maxLength30 = maxLength(30)
+const maxLength50 = maxLength(30)
+
+type NewMessageFormValuesKeysType = GetStringKeys<NewMessageFormDataType>
 const NewMessageForm: FC<InjectedFormProps<NewMessageFormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field name='newMessageBody' component={Textarea} validate={[required, maxLength30]}/>
+            {createField<NewMessageFormValuesKeysType>("Enter your message", 'newMessageBody', [required, maxLength50], Textarea)}
             <button type='submit'>Send message</button>
         </form>
     )

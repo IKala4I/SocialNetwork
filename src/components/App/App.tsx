@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar"
 import {Navigate, Route, Routes} from "react-router-dom"
 import UsersContainer from "../UsersContainer/UsersContainer"
 import HeaderContainer from "../HeaderContainer/HeaderContainer"
-import {Component, lazy, Suspense} from "react"
+import {Component, ComponentType, lazy, Suspense} from "react"
 import {initializeApp} from "../../redux/reducers/app-reducer/app-reducer"
 import {connect, ConnectedProps} from "react-redux"
 import Preloader from "../common/Preloader/Preloader"
@@ -11,8 +11,12 @@ import {getInitialized} from "../../redux/selectors/app-selectors"
 import LoginContainer from "../LoginContainer/LoginContainer"
 import {AppStateType} from '../../redux/redux-store'
 
-const DialogsContainer = lazy(() => import('../DialogsContainer/DialogsContainer'))
-const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer'))
+const DialogsContainer = lazy(() => import('../DialogsContainer/DialogsContainer') as Promise<{
+    default: ComponentType<any>
+}>)
+const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer') as Promise<{
+    default: ComponentType<any>
+}>)
 
 
 class App extends Component<AppPropsType> {
@@ -66,7 +70,7 @@ class App extends Component<AppPropsType> {
     }
 }
 
-const mapStateToProps = (state : AppStateType) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         initialized: getInitialized(state)
     }
