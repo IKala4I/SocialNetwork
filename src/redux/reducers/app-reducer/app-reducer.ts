@@ -1,5 +1,5 @@
 import {getAuthMe} from "../auth-reducer/auth-reducer"
-import {InferActionsTypes} from "../../redux-store";
+import {BaseThunkType, InferActionsTypes} from "../../redux-store";
 
 type InitStateType = {
     initialized: boolean
@@ -31,7 +31,7 @@ export const appActions = {
 
 //thunks
 
-export const initializeApp = () => async (dispatch: any) => {
+export const initializeApp = (): BaseThunkType<ActionsType> => async (dispatch) => {
     await dispatch(getAuthMe())
     dispatch(appActions.initializedSuccess())
 }

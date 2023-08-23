@@ -1,8 +1,8 @@
 import authAPI from "../../../api/authAPI"
-import {stopSubmit} from "redux-form"
+import {FormAction, stopSubmit} from "redux-form"
 import {securityAPI} from "../../../api/securityAPI"
 import {CaptchaResultCode, ResultCodes} from "../../../api/resultCodes";
-import {InferActionsTypes} from "../../redux-store";
+import {BaseThunkType, InferActionsTypes} from "../../redux-store";
 
 const initState = {
     userId: null as (number | null),
@@ -42,7 +42,9 @@ export const authActions = {
 
 //thunks
 
-export const getAuthMe = () => async (dispatch: any) => {
+type ThunkType = BaseThunkType<ActionsType | FormAction>
+
+export const getAuthMe = (): ThunkType => async (dispatch) => {
     const data = await authAPI.getAuthMe()
 
     if (data.resultCode === ResultCodes.Success) {
@@ -50,7 +52,7 @@ export const getAuthMe = () => async (dispatch: any) => {
         dispatch(authActions.setUserData(id, email, login, true))
     }
 }
-export const logOut = () => async (dispatch: any) => {
+export const logOut = (): ThunkType => async (dispatch) => {
     const data = await authAPI.logOut()
 
     if (data.resultCode === ResultCodes.Success)
@@ -64,14 +66,14 @@ export type LoginBodyType = {
     captcha: string
 }
 
-export const logIn = (body: LoginBodyType) => async (dispatch: any) => {
+export const logIn = (body: LoginBodyType): ThunkType => async (dispatch) => {
     const data = await authAPI.logIn(body)
 
     if (data.resultCode === ResultCodes.Success) {
-        dispatch(getAuthMe())
+        await dispatch(getAuthMe())
     } else {
         if (data.resultCode === CaptchaResultCode.CaptchaIsRequired) {
-            dispatch(getCaptchaUrl());
+            await dispatch(getCaptchaUrl());
         }
 
         let message = data.messages.length > 0 ? data.messages[0] : "Some error";
@@ -79,7 +81,7 @@ export const logIn = (body: LoginBodyType) => async (dispatch: any) => {
     }
 }
 
-export const getCaptchaUrl = () => async (dispatch: any) => {
+export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     const response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.data.url;
     dispatch(authActions.getCaptchaUrlSuccess(captchaUrl));

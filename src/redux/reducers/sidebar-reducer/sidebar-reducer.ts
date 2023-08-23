@@ -1,6 +1,6 @@
 import friendsAPI from "../../../api/friendsAPI"
 import {UserType} from '../users-reducer/users-reducer'
-import {InferActionsTypes} from "../../redux-store";
+import {BaseThunkType, InferActionsTypes} from "../../redux-store";
 
 type InitStateType = {
     friends: Array<UserType>
@@ -42,7 +42,8 @@ export const sidebarActions = {
 }
 //thunks
 
-export const requestFriends = () => async (dispatch: any) => {
+type ThunkType = BaseThunkType<ActionsType>
+export const requestFriends = (): ThunkType => async (dispatch) => {
     const data = await friendsAPI.getFriends()
     dispatch(sidebarActions.setFriends(data.items))
 }

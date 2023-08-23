@@ -2,7 +2,7 @@ import usersAPI from "../../../api/usersAPI"
 import {sidebarActions} from "../sidebar-reducer/sidebar-reducer"
 import {updateObjectInArray} from "../../../utils/object-helpers"
 import {ResultCodes} from "../../../api/resultCodes";
-import {InferActionsTypes} from "../../redux-store";
+import {BaseThunkType, InferActionsTypes} from "../../redux-store";
 
 export type UserType = {
     id: number,
@@ -116,7 +116,11 @@ export const usersActions = {
 }
 
 //thunks
-export const requestUsers = (currentPage: number, pageSize: number) => async (dispatch: any) => {
+
+type SidebarActionsType = InferActionsTypes<typeof sidebarActions>
+
+type ThunkType = BaseThunkType<ActionsType | SidebarActionsType>
+export const requestUsers = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
     dispatch(usersActions.updateCurrentPage(currentPage))
     dispatch(usersActions.toggleIsFetching(true))
 
@@ -127,7 +131,7 @@ export const requestUsers = (currentPage: number, pageSize: number) => async (di
     dispatch(usersActions.setTotalUsersCount(data.totalCount))
 }
 
-export const unfollow = (userId: number) => async (dispatch: any) => {
+export const unfollow = (userId: number): ThunkType => async (dispatch) => {
     dispatch(usersActions.toggleIsFollowing(true, userId))
 
     const resultCode = await usersAPI.deleteFollowOnUser(userId)
@@ -138,7 +142,7 @@ export const unfollow = (userId: number) => async (dispatch: any) => {
         dispatch(usersActions.toggleIsFollowing(false, userId))
     }
 }
-export const follow = (user: UserType) => async (dispatch: any) => {
+export const follow = (user: UserType): ThunkType => async (dispatch) => {
     dispatch(usersActions.toggleIsFollowing(true, user.id))
 
     const resultCode = await usersAPI.postFollowOnUser(user.id)
