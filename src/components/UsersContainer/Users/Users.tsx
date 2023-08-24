@@ -1,7 +1,8 @@
 import User, {MapDispatchUserPropsType, MapStateUserPropsType} from "./User/User"
 import Paginator from "../../common/Paginator/Paginator"
-import {UserType} from "../../../redux/reducers/users-reducer/users-reducer";
+import {FilterType, UserType} from "../../../redux/reducers/users-reducer/users-reducer";
 import {FC} from "react";
+import {UsersSearchForm} from "../UsersSearchForm/UsersSearchForm";
 
 type MapStateOwnUsersPropsType = {
     totalUsersCount: number,
@@ -11,7 +12,8 @@ type MapStateOwnUsersPropsType = {
 }
 
 type MapDispatchOwnUsersPropsType = {
-    onPageChanged: (pageNumber: number) => void
+    onPageChanged: (pageNumber: number) => void,
+    onFilterChanged: (filter: FilterType) => void
 }
 
 export type MapDispatchUsersPropsType = MapDispatchOwnUsersPropsType & MapDispatchUserPropsType
@@ -21,6 +23,8 @@ export type MapStateUsersPropsType = MapStateUserPropsType & MapStateOwnUsersPro
 const Users: FC<MapStateUsersPropsType & MapDispatchUsersPropsType> = (props) => {
     return (
         <div>
+            <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
+
             <div>
                 <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged}
                            totalItemsCount={props.totalUsersCount} pageSize={props.pageSize} portionSize={10}/>

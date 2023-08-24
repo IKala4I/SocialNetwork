@@ -15,6 +15,11 @@ export type UserType = {
     followed: boolean
 }
 
+export type FilterType = {
+    term: string,
+    friend: null | boolean
+}
+
 type InitStateType = {
     users: Array<UserType>
     pageSize: number
@@ -23,6 +28,7 @@ type InitStateType = {
     isFetching: boolean
     isFollowing: boolean
     followingUsers: Array<number>
+    filter: FilterType
 }
 
 const initState: InitStateType = {
@@ -32,7 +38,11 @@ const initState: InitStateType = {
     currentPage: 1,
     isFetching: false,
     isFollowing: false,
-    followingUsers: []
+    followingUsers: [],
+    filter: {
+        term: '',
+        friend: null
+    }
 }
 
 type ActionsType = InferActionsTypes<typeof usersActions>
@@ -77,6 +87,10 @@ const usersReducer = (state = initState, action: ActionsType): InitStateType => 
                     ? [...state.followingUsers, action.userId]
                     : state.followingUsers.filter(id => id !== action.userId)
             }
+        case 'SET_FILTER':
+            return {
+                ...state, filter: action.payload
+            }
         default:
             return state
     }
@@ -112,6 +126,10 @@ export const usersActions = {
         type: 'TOGGLE_IS_FOLLOWING',
         isFollowing,
         userId
+    } as const),
+    setFilter: (filter: FilterType) => ({
+        type: 'SET_FILTER',
+        payload: filter
     } as const)
 }
 
@@ -120,11 +138,11 @@ export const usersActions = {
 type SidebarActionsType = InferActionsTypes<typeof sidebarActions>
 
 type ThunkType = BaseThunkType<ActionsType | SidebarActionsType>
-export const requestUsers = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
+export const requestUsers = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => async (dispatch) => {
     dispatch(usersActions.updateCurrentPage(currentPage))
     dispatch(usersActions.toggleIsFetching(true))
 
-    const data = await usersAPI.getUsers(currentPage, pageSize)
+    const data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
 
     dispatch(usersActions.toggleIsFetching(false))
     dispatch(usersActions.setUsers(data.items))

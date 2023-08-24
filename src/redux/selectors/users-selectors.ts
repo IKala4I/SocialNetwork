@@ -1,5 +1,5 @@
 import {createSelector} from "reselect"
-import {UserType} from '../reducers/users-reducer/users-reducer'
+import {FilterType, UserType} from '../reducers/users-reducer/users-reducer'
 import {AppStateType} from '../redux-store'
 
 const getUsersSelector = (state: AppStateType): Array<UserType> => {
@@ -24,4 +24,7 @@ export const getCurrentPage = (state: AppStateType): number => {
 }
 export const getFollowingUsers = (state: AppStateType): Array<number> => {
     return state.usersPage.followingUsers
+}
+export const getUsersFilter = (state: AppStateType): FilterType => {
+    return state.usersPage.filter
 }
