@@ -3,13 +3,14 @@ import Navbar from "../Navbar/Navbar"
 import {Navigate, Route, Routes} from "react-router-dom"
 import UsersContainer from "../UsersContainer/UsersContainer"
 import HeaderContainer from "../HeaderContainer/HeaderContainer"
-import {Component, ComponentType, lazy, Suspense} from "react"
-import {initializeApp} from "../../redux/reducers/app-reducer/app-reducer"
-import {connect, ConnectedProps} from "react-redux"
+import {ComponentType, FC, lazy, Suspense, useEffect} from "react"
+import {AppActionsType, initializeApp} from "../../redux/reducers/app-reducer/app-reducer"
+import {useDispatch, useSelector} from "react-redux"
 import Preloader from "../common/Preloader/Preloader"
 import {getInitialized} from "../../redux/selectors/app-selectors"
 import LoginContainer from "../LoginContainer/LoginContainer"
 import {AppStateType} from '../../redux/redux-store'
+import {ThunkDispatch} from "redux-thunk";
 
 const DialogsContainer = lazy(() => import('../DialogsContainer/DialogsContainer') as Promise<{
     default: ComponentType<any>
@@ -18,64 +19,54 @@ const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer
     default: ComponentType<any>
 }>)
 
+export const App: FC = () => {
+    const dispatch: ThunkDispatch<AppStateType, void, AppActionsType> = useDispatch()
+    const initialized = useSelector(getInitialized)
 
-class App extends Component<AppPropsType> {
-    componentDidMount() {
-        this.props.initializeApp()
-    }
+    useEffect(() => {
+        dispatch(initializeApp())
+    }, [])
 
-    render() {
-        if (!this.props.initialized)
-            return <Preloader/>
+    if (!initialized)
+        return <Preloader/>
 
-        return (
-            <div className='app-wrapper'>
-                <HeaderContainer/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Routes>
-                        <Route
-                            path='/'
-                            element={<Navigate to={"/profile"}/>}
-                        />
-                        <Route
-                            path='/profile/:userID?'
-                            element={
-                                <Suspense fallback={<Preloader/>}>
-                                    <ProfileContainer/>
-                                </Suspense>}
-                        />
-                        <Route
-                            path='/dialogs/*'
-                            element={<Suspense fallback={<Preloader/>}>
-                                <DialogsContainer/>
+    return (
+        <div className='app-wrapper'>
+            <HeaderContainer/>
+            <Navbar/>
+            <div className='app-wrapper-content'>
+                <Routes>
+                    <Route
+                        path='/'
+                        element={<Navigate to={"/profile"}/>}
+                    />
+                    <Route
+                        path='/profile/:userID?'
+                        element={
+                            <Suspense fallback={<Preloader/>}>
+                                <ProfileContainer/>
                             </Suspense>}
-                        />
-                        <Route
-                            path='/users'
-                            element={<UsersContainer/>}
-                        />
-                        <Route
-                            path='/login'
-                            element={<LoginContainer/>}
-                        />
-                        <Route
-                            path='*'
-                            element={<div>404 NOT FOUND</div>}
-                        />
-                    </Routes>
-                </div>
+                    />
+                    <Route
+                        path='/dialogs/*'
+                        element={<Suspense fallback={<Preloader/>}>
+                            <DialogsContainer/>
+                        </Suspense>}
+                    />
+                    <Route
+                        path='/users'
+                        element={<UsersContainer/>}
+                    />
+                    <Route
+                        path='/login'
+                        element={<LoginContainer/>}
+                    />
+                    <Route
+                        path='*'
+                        element={<div>404 NOT FOUND</div>}
+                    />
+                </Routes>
             </div>
-        )
-    }
+        </div>
+    )
 }
-
-const mapStateToProps = (state: AppStateType) => {
-    return {
-        initialized: getInitialized(state)
-    }
-}
-
-const connector = connect(mapStateToProps, {initializeApp})
-type AppPropsType = ConnectedProps<typeof connector>
-export default connector(App)
