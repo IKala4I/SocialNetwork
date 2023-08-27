@@ -12,6 +12,3 @@ export const getLogin = (state: AppStateType): string | null => {
 export const getCaptchaURL = (state: AppStateType): string | null => {
     return state.auth.captchaUrl
 }
-export const getEmail = (state: AppStateType): string | null => {
-    return state.auth.email
-}

@@ -58,9 +58,9 @@ const initState: InitStateType = {
     ]
 }
 
-type ActionsType = InferActionsTypes<typeof dialogsActions>
+export type DialogsActionsType = InferActionsTypes<typeof dialogsActions>
 
-const dialogsReducer = (state = initState, action: ActionsType): InitStateType => {
+const dialogsReducer = (state = initState, action: DialogsActionsType): InitStateType => {
     switch (action.type) {
         case 'SEND_MESSAGE':
             return {

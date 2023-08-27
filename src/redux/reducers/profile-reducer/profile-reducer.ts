@@ -60,9 +60,9 @@ const initState: InitStateType = {
     status: ""
 }
 
-type ActionsType = InferActionsTypes<typeof profileActions>
+export type ProfileActionsType = InferActionsTypes<typeof profileActions>
 
-const profileReducer = (state = initState, action: ActionsType): InitStateType => {
+const profileReducer = (state = initState, action: ProfileActionsType): InitStateType => {
     switch (action.type) {
         case 'ADD_POST':
             const newPost = {
@@ -114,7 +114,7 @@ export const profileActions = {
 }
 //thunks
 
-type ThunkType = BaseThunkType<ActionsType|FormAction>
+type ThunkType = BaseThunkType<ProfileActionsType | FormAction>
 export const getUserProfile = (userId: number): ThunkType => async (dispatch) => {
     dispatch(profileActions.toggleIsProfileFetching(true))
 

@@ -2,34 +2,54 @@ import userDefaultPhoto from '../../../../assets/images/user.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus"
 import {FC, useState} from "react"
 import classes from './ProfileInfo.module.css'
-import {MapDispatchProfileType, ProfilePropsType} from "../Profile";
-import ProfileData from "./ProfileData/ProfileData";
-import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
-import {ProfileType} from "../../../../redux/reducers/profile-reducer/profile-reducer";
+import ProfileData from "./ProfileData/ProfileData"
+import ProfileDataForm from "./ProfileDataForm/ProfileDataForm"
+import {
+    ProfileType,
+    savePhoto,
+    saveProfile,
+    updateStatus
+} from "../../../../redux/reducers/profile-reducer/profile-reducer"
+import {useDispatch, useSelector} from 'react-redux'
+import {getProfile, getProfileStatus} from '../../../../redux/selectors/profile-selectors'
+import {ThunkDispatch} from 'redux-thunk'
+import {AppStateType} from '../../../../redux/redux-store'
+import {Action} from 'redux'
+import {useParams} from 'react-router-dom'
 
-const ProfileInfo: FC<ProfilePropsType & MapDispatchProfileType> = ({
-                                                                        profile,
-                                                                        savePhoto,
-                                                                        saveProfile,
-                                                                        ...restProps
-                                                                    }) => {
-    let [editMode, setEditMode] = useState(false)
+const ProfileInfo: FC = () => {
+    const dispatch: ThunkDispatch<AppStateType, void, Action> = useDispatch()
+
+    const profile = useSelector(getProfile)
+    const status = useSelector(getProfileStatus)
+
+    const params = useParams()
+    let isOwner = false
+
+    if (!params.userId)
+        isOwner = true
+
+    const [editMode, setEditMode] = useState(false)
 
     if (!profile)
         return <></>
 
     const onMainPhotoSelected = (e: any) => {
         if (e.target.files.length) {
-            savePhoto(e.target.files[0])
+            dispatch(savePhoto(e.target.files[0]))
         }
     }
 
     const onSubmit = (formData: ProfileType) => {
-        saveProfile(formData).then(
+        dispatch(saveProfile(formData)).then(
             () => {
                 setEditMode(false)
             }
         )
+    }
+
+    const updateStatusHandler = (status: string) => {
+        dispatch(updateStatus(status))
     }
 
     return (
@@ -41,14 +61,14 @@ const ProfileInfo: FC<ProfilePropsType & MapDispatchProfileType> = ({
             </div>
             <div>
                 <img src={profile.photos.large || userDefaultPhoto} className={classes.mainPhoto} alt='avatar'/>
-                {restProps.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
 
                 {editMode
                     ? <ProfileDataForm profile={profile} onSubmit={onSubmit}/>
                     : <ProfileData goToEditMode={() => {
                         setEditMode(true)
-                    }} profile={profile} isOwner={restProps.isOwner}/>}
-                <ProfileStatus status={restProps.status} updateStatus={restProps.updateStatus}/>
+                    }} profile={profile} isOwner={isOwner}/>}
+                <ProfileStatus status={status} updateStatus={updateStatusHandler}/>
             </div>
         </>
     )

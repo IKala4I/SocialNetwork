@@ -14,9 +14,9 @@ const initState = {
 
 type InitStateType = typeof initState
 
-type ActionsType = InferActionsTypes<typeof authActions>
+export type AuthActionsType = InferActionsTypes<typeof authActions>
 
-const authReducer = (state = initState, action: ActionsType): InitStateType => {
+const authReducer = (state = initState, action: AuthActionsType): InitStateType => {
     switch (action.type) {
         case 'SET_USER_DATA':
         case 'GET_CAPTCHA_URL_SUCCESS':
@@ -42,7 +42,7 @@ export const authActions = {
 
 //thunks
 
-type ThunkType = BaseThunkType<ActionsType | FormAction>
+type ThunkType = BaseThunkType<AuthActionsType | FormAction>
 
 export const getAuthMe = (): ThunkType => async (dispatch) => {
     const data = await authAPI.getAuthMe()

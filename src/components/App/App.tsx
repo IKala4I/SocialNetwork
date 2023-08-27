@@ -1,18 +1,19 @@
 import './App.css'
 import Navbar from "../Navbar/Navbar"
 import {Navigate, Route, Routes} from "react-router-dom"
-import UsersContainer from "../UsersContainer/UsersContainer"
-import HeaderContainer from "../HeaderContainer/HeaderContainer"
 import {ComponentType, FC, lazy, Suspense, useEffect} from "react"
-import {AppActionsType, initializeApp} from "../../redux/reducers/app-reducer/app-reducer"
+import {initializeApp} from "../../redux/reducers/app-reducer/app-reducer"
 import {useDispatch, useSelector} from "react-redux"
 import Preloader from "../common/Preloader/Preloader"
 import {getInitialized} from "../../redux/selectors/app-selectors"
-import LoginContainer from "../LoginContainer/LoginContainer"
 import {AppStateType} from '../../redux/redux-store'
-import {ThunkDispatch} from "redux-thunk";
+import {ThunkDispatch} from 'redux-thunk'
+import {Header} from '../Header/Header'
+import {Action} from 'redux'
+import Login from '../Login/Login'
+import Users from '../Users/Users'
 
-const DialogsContainer = lazy(() => import('../DialogsContainer/DialogsContainer') as Promise<{
+const DialogsContainer = lazy(() => import('../Dialogs/Dialogs') as Promise<{
     default: ComponentType<any>
 }>)
 const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer') as Promise<{
@@ -20,7 +21,7 @@ const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer
 }>)
 
 export const App: FC = () => {
-    const dispatch: ThunkDispatch<AppStateType, void, AppActionsType> = useDispatch()
+    const dispatch: ThunkDispatch<AppStateType, void, Action> = useDispatch()
     const initialized = useSelector(getInitialized)
 
     useEffect(() => {
@@ -32,7 +33,7 @@ export const App: FC = () => {
 
     return (
         <div className='app-wrapper'>
-            <HeaderContainer/>
+            <Header/>
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Routes>
@@ -41,7 +42,7 @@ export const App: FC = () => {
                         element={<Navigate to={"/profile"}/>}
                     />
                     <Route
-                        path='/profile/:userID?'
+                        path='/profile/:userId?'
                         element={
                             <Suspense fallback={<Preloader/>}>
                                 <ProfileContainer/>
@@ -55,11 +56,11 @@ export const App: FC = () => {
                     />
                     <Route
                         path='/users'
-                        element={<UsersContainer/>}
+                        element={<Users/>}
                     />
                     <Route
                         path='/login'
-                        element={<LoginContainer/>}
+                        element={<Login/>}
                     />
                     <Route
                         path='*'

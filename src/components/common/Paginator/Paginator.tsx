@@ -5,15 +5,15 @@ import cn from "classnames"
 type PaginatorPropsType = {
     totalItemsCount: number,
     pageSize: number,
-    currentPage: number,
+    currentPage?: number,
     onPageChanged: (p: number) => void,
-    portionSize: number
+    portionSize?: number
 }
 
 const Paginator: FC<PaginatorPropsType> = ({
                                                totalItemsCount,
                                                pageSize,
-                                               currentPage,
+                                               currentPage=1,
                                                onPageChanged,
                                                portionSize = 10
                                            }) => {

@@ -9,9 +9,9 @@ const initState: InitStateType = {
     initialized: false
 }
 
-export type AppActionsType = InferActionsTypes<typeof appActions>
+type ActionsType = InferActionsTypes<typeof appActions>
 
-const appReducer = (state = initState, action: AppActionsType): InitStateType => {
+const appReducer = (state = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
         case 'INITIALIZED_SUCCESS':
             return {
@@ -31,7 +31,7 @@ export const appActions = {
 
 //thunks
 
-export const initializeApp = (): BaseThunkType<AppActionsType> => async (dispatch) => {
+export const initializeApp = (): BaseThunkType<ActionsType> => async (dispatch) => {
     await dispatch(getAuthMe())
     dispatch(appActions.initializedSuccess())
 }
