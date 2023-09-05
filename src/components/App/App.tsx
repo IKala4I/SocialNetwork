@@ -24,6 +24,8 @@ const ProfileContainer = lazy(() => import('../ProfileContainer/ProfileContainer
     default: ComponentType<any>
 }>)
 
+const ChatPage = lazy(() => import('../Chat/ChatPage'))
+
 export const App: FC = () => {
     const dispatch: ThunkDispatch<AppStateType, void, Action> = useDispatch()
     const initialized = useSelector(getInitialized)
@@ -63,6 +65,12 @@ export const App: FC = () => {
                                 path='/dialogs/*'
                                 element={<Suspense fallback={<Preloader/>}>
                                     <DialogsContainer/>
+                                </Suspense>}
+                            />
+                            <Route
+                                path='/chat'
+                                element={<Suspense fallback={<Preloader/>}>
+                                    <ChatPage/>
                                 </Suspense>}
                             />
                             <Route
