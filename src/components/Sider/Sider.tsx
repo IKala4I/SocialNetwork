@@ -20,10 +20,10 @@ const Sider: FC = () => {
                     <Menu.Item key="2"> <Link to="/dialogs">Messages</Link></Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" icon={<LaptopOutlined/>} title="Users">
-                    <Menu.Item key="1"><Link to="/users">Users</Link></Menu.Item>
+                    <Menu.Item key="3"><Link to="/users">Users</Link></Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub3" icon={<WechatOutlined/>} title="Chat">
-                    <Menu.Item key="1"><Link to="/chat">Chat</Link></Menu.Item>
+                    <Menu.Item key="4"><Link to="/chat">Chat</Link></Menu.Item>
                 </SubMenu>
                 <Friends/>
             </Menu>

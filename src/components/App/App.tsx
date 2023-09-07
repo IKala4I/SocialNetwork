@@ -11,7 +11,7 @@ import {Header} from '../Header/Header'
 import {Action} from 'redux'
 import Login from '../Login/Login'
 import Users from '../Users/Users'
-import Sider from '../Navbar/Sider'
+import Sider from '../Sider/Sider'
 
 import {Breadcrumb, Layout} from 'antd'
 

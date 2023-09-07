@@ -15,7 +15,6 @@ const Friends: FC = () => {
     const friends = useSelector(getFriends)
 
     useEffect(() => {
-        console.log('requestFriends')
         dispatch(requestFriends())
     }, [])
 
