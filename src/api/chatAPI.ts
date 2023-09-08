@@ -1,9 +1,15 @@
-import {ChatMessageType} from '../components/Chat/ChatPage'
 import {StatusType} from '../redux/reducers/chat-reducer/chat-reducer'
 
+export type ChatMessageAPIType = {
+    message: string
+    photo: string
+    userId: number
+    userName: string
+}
 type EventsNamesType = 'messages-received' | 'status-changed'
-type MessagesReceivedSubscriberType = (messages: ChatMessageType[]) => void
+type MessagesReceivedSubscriberType = (messages: ChatMessageAPIType[]) => void
 type StatusChangedSubscriberType = (status: StatusType) => void
+
 
 
 const subcribers = {

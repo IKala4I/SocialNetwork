@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react'
+import {FC, memo, useEffect, useRef, useState} from 'react'
 import defaultUserPhoto from '../../assets/images/user.png'
 import {useDispatch, useSelector} from 'react-redux'
 import {ThunkDispatch} from 'redux-thunk'
@@ -10,13 +10,8 @@ import {
     stopMessagesListening
 } from '../../redux/reducers/chat-reducer/chat-reducer'
 import {getChatMessages, getChatStatus} from '../../redux/selectors/chat-selectors'
+import {ChatMessageAPIType} from '../../api/chatAPI'
 
-export type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
 const ChatPage: FC = () => {
     return (
         <div>
@@ -47,19 +42,37 @@ const Chat: FC = () => {
 
 const Messages: FC = () => {
     const messages = useSelector(getChatMessages)
+    const messagesAnchorRef = useRef<HTMLDivElement>(null);
+    const [isAutoScroll, setIsAutoScroll] = useState(true)
+
+    const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        const element = e.currentTarget;
+        if (Math.abs((element.scrollHeight - element.scrollTop) - element.clientHeight) < 300) {
+            !isAutoScroll && setIsAutoScroll(true)
+        } else {
+            isAutoScroll && setIsAutoScroll(false)
+        }
+    }
+
+    useEffect(() => {
+        if (isAutoScroll) {
+            messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+        }
+    }, [messages])
 
     return (
-        <div style={{height: '400px', overflowY: 'auto'}}>
-            {messages.map(message => <Message message={message}/>)}
+        <div style={{height: '400px', overflowY: 'auto'}} onScroll={scrollHandler}>
+            {messages.map((m, index) => <Message key={m.id} message={m}/>)}
+            <div ref={messagesAnchorRef}></div>
         </div>
     )
 }
 
 type MessagePropsType = {
-    message: ChatMessageType
+    message: ChatMessageAPIType
 }
 
-const Message: FC<MessagePropsType> = ({message}) => {
+const Message: FC<MessagePropsType> = memo(({message}) => {
     return (
         <div>
             <img src={message.photo ? message.photo : defaultUserPhoto} style={{width: '40px'}} alt='photo'/>
@@ -69,7 +82,7 @@ const Message: FC<MessagePropsType> = ({message}) => {
             {message.message}
         </div>
     )
-}
+})
 
 const AddMessageForm: FC = () => {
     const dispatch: ThunkDispatch<AppStateType, void, Action> = useDispatch()
