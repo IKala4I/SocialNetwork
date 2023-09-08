@@ -9,7 +9,7 @@ import {
     startMessagesListening,
     stopMessagesListening
 } from '../../redux/reducers/chat-reducer/chat-reducer'
-import {getChatMessages} from '../../redux/selectors/chat-selectors'
+import {getChatMessages, getChatStatus} from '../../redux/selectors/chat-selectors'
 
 export type ChatMessageType = {
     message: string
@@ -18,13 +18,17 @@ export type ChatMessageType = {
     userName: string
 }
 const ChatPage: FC = () => {
-    return <div>
-        <Chat/>
-    </div>
+    return (
+        <div>
+            <Chat/>
+        </div>
+    )
 }
 
 const Chat: FC = () => {
     const dispatch: ThunkDispatch<AppStateType, void, Action> = useDispatch()
+
+    const status = useSelector(getChatStatus)
 
     useEffect(() => {
         dispatch(startMessagesListening())
@@ -35,6 +39,7 @@ const Chat: FC = () => {
 
     return (
         <>
+            {status === 'error' && <div>Some error occured. Please refresh the page</div>}
             <Messages/>
             <AddMessageForm/>
         </>)
@@ -71,6 +76,8 @@ const AddMessageForm: FC = () => {
 
     const [message, setMessage] = useState('')
 
+    const status = useSelector(getChatStatus)
+
     const sendMessageHandler = () => {
         if (!message)
             return
@@ -84,7 +91,7 @@ const AddMessageForm: FC = () => {
                 <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea>
             </div>
             <div>
-                <button onClick={sendMessageHandler}>Send
+                <button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send
                 </button>
             </div>
         </div>
